@@ -134,7 +134,7 @@ def _bloque_cumplimiento_html(
         )
         parts.append(qa_d4.to_html(index=False).replace('class="dataframe"', ""))
     if checklist:
-        parts.append("  <h3>Checklist v3 + operación</h3>\n")
+        parts.append('  <h3 id="checklist-v3">Checklist v3 + operación</h3>\n')
         parts.append("  <ul>\n")
         for item in checklist:
             parts.append(f"    <li>{_inline_md_bold(item)}</li>\n")
@@ -163,7 +163,7 @@ def build_html(
     manifest_entregables: pd.DataFrame | None = None,
     qa_v3: pd.DataFrame | None = None,
     normativa_links: list[str] | None = None,
-    version_informe: str = "2026-08-09-v3",
+    version_informe: str = "2026-08-09-v3-r2",
 ) -> None:
     agg_html = agg.to_html(index=False, float_format=lambda x: f"{x:,.2f}" if isinstance(x, float) else f"{x:,}")
     flags_html = flags.to_html(index=False)
@@ -204,7 +204,7 @@ def build_html(
   <nav class="indice" aria-label="Indice">
     <strong>Indice:</strong>
     <a href="#cumplimiento-v3">Cumplimiento v3</a> ·
-    <a href="#archivos-n0">Archivos N0</a> ·
+    <a href="#checklist-v3">Checklist</a> ·
     <a href="#guia-rapida">Guía rápida D4</a> ·
     <a href="#graficos">Gráficos</a> ·
     <a href="#tabla-anios">Tabla por año</a> ·

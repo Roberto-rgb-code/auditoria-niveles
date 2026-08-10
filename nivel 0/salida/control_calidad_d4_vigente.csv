@@ -1,6 +1,5 @@
 ﻿prueba,criterio,resultado
 Secciones únicas (D4 vigente),Una fila por sección+año (diputado),OK
-Filas D4 vigente,Serie usada en gráficos 1–5,975 filas
-Outliers marcados,flag_outlier = 1 (PDF §0.10),1 fila(s)
+Filas D4 vigente,Gráficos 1–2b,975 filas
+Outliers marcados,flag_outlier = 1,1 fila(s)
 Datos incompletos,flag_datos_incompletos = 1,0 fila(s)
-Secciones 2024,Cartografía D4 completa (167),167 secciones
