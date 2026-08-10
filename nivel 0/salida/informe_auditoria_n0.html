@@ -14,6 +14,8 @@
     .indice { background: #f0fdf4; border: 1px solid #86efac; padding: 0.85rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
     .indice a { color: #047857; }
     .pdf-cumplimiento { background: #ecfdf5; border-left: 5px solid #059669; padding: 1rem 1.15rem; margin: 0.5rem 0 1.25rem; }
+    .lista-entregables { font-size: 0.92rem; line-height: 1.45; }
+    .lista-entregables a { font-weight: 600; }
     table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.9rem; }
     th, td { border: 1px solid #cbd5e1; padding: 0.4rem 0.6rem; text-align: left; }
     th { background: #f1f5f9; }
@@ -25,10 +27,11 @@
 </head>
 <body>
   <h1>Auditoria Nivel 0 · Distrito Local 4 · Diputacion<span class="badge">PDF §0.6–0.8</span></h1>
-  <p class="meta">Generado: 2026-08-09 · Versión informe: 2026-08-09-pdf · Fuente: <code>analisis/nivel0/</code></p>
+  <p class="meta">Generado: 2026-08-09 · Versión informe: 2026-08-09-entregables · Fuente: <code>analisis/nivel0/</code></p>
   <nav class="indice" aria-label="Indice">
     <strong>Indice:</strong>
     <a href="#cumplimiento-pdf">Cumplimiento PDF Nivel 0</a> ·
+    <a href="#archivos-n0">Archivos N0</a> ·
     <a href="#guia-rapida">Guía rápida D4</a> ·
     <a href="#graficos">Gráficos</a> ·
     <a href="#tabla-anios">Tabla por año</a> ·
@@ -36,10 +39,10 @@
   </nav>
   <h2 id="cumplimiento-pdf">Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>
   <div class="pdf-cumplimiento">
-    <p>Este informe en salida/ combina tres capas: (1) gráficos y narrativa del Distrito Local 4 (diputado) para campaña; (2) entregables y pruebas del PDF «Nivel 0» (analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf) ya materializados en analisis/nivel0/ por electoral_nivel0.py; (3) pruebas adicionales solo sobre el subconjunto D4 vigente que alimenta los gráficos. Los colores estratégicos (azul/dorado/naranja…) del PDF §0.1 corresponden al Nivel 1+, no a esta auditoría.</p>
-    <p class="meta">Especificación: <code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · Copia en esta carpeta: <code>control_calidad_jalisco_n0.md</code>, <code>entregables_pdf_0_7.csv</code>, <code>control_calidad_d4_vigente.csv</code>.</p>
+    <p>Este informe combina narrativa del Distrito Local 4 (diputado) con el cumplimiento del PDF «Nivel 0» (analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf). Todos los entregables del pipeline (base maestra, catálogos, reportes, bitácora, N0.5) se copian a salida/entregables_n0/ al ejecutar la auditoría. Los colores estratégicos del PDF §0.1 corresponden al Nivel 1+.</p>
+    <p class="meta">Especificación: <code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · Copia en esta carpeta: <code>entregables_n0/</code> (todos los CSV/MD del N0) · Manifiesto: <code>entregables_n0_manifest.csv</code> · Atajo calidad: <code>control_calidad_jalisco_n0.md</code>.</p>
   </div>
-  <h3>Entregables §0.7 (analisis/nivel0/)</h3>
+  <h3>Entregables §0.7 (resumen)</h3>
 <table border="1" >
   <thead>
     <tr style="text-align: right;">
@@ -55,6 +58,11 @@
       <td>Presente</td>
     </tr>
     <tr>
+      <td>Historial y limpieza</td>
+      <td>historial_partidos.csv (456,167 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
       <td>Diccionario de datos</td>
       <td>diccionario_datos.md</td>
       <td>Presente</td>
@@ -65,8 +73,13 @@
       <td>Presente</td>
     </tr>
     <tr>
+      <td>Catálogo territorial y coaliciones</td>
+      <td>catalogo_secciones.csv (4,245 filas); catalogo_coalicion.csv (142 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
       <td>Tabla de homologación partidaria</td>
-      <td>homologacion_partidos_bloques.csv (142 filas)</td>
+      <td>homologacion_partidos_bloques.csv (142 filas); voto_combinado_coalicion.csv (162,089 filas)</td>
       <td>Presente</td>
     </tr>
     <tr>
@@ -80,22 +93,51 @@
       <td>Presente</td>
     </tr>
     <tr>
-      <td>Catálogo territorial</td>
-      <td>catalogo_secciones.csv (4,245 filas)</td>
-      <td>Presente</td>
-    </tr>
-    <tr>
       <td>Bitácora metodológica</td>
       <td>bitacora_metodologica.md</td>
       <td>Presente</td>
     </tr>
     <tr>
       <td>Serie remapeada (N0.5)</td>
-      <td>base_seccion_anio_interpolada.csv (59,163 filas)</td>
+      <td>base_seccion_anio_interpolada.csv (59,163 filas); interpolacion_proporciones.csv (26,798 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Auxiliares pipeline</td>
+      <td>registro_satelites.csv (72 filas); resumen_partidos_estatal.csv (141 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Vistas demarcación</td>
+      <td>vistas_demarcacion/vw_resultados_institucionales_distrito.csv (120 filas); vistas_demarcacion/vw_nivel1_demarcacion.csv (110 filas)</td>
       <td>Presente</td>
     </tr>
   </tbody>
-</table>  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>
+</table>  <h3 id="archivos-n0">Archivos copiados en salida/entregables_n0/</h3>
+  <p>Descarga o abre cada entregable desde esta carpeta (misma copia que analisis/nivel0/).</p>
+  <ul class="lista-entregables">
+    <li><a href="entregables_n0/README.md">README.md</a> — Guía de entregables N0 <span class="meta">(1.5 KB)</span></li>
+    <li><a href="entregables_n0/base_maestra_largo.csv">base_maestra_largo.csv</a> — Base maestra formato largo <span class="meta">(478,280 filas)</span></li>
+    <li><a href="entregables_n0/base_seccion_anio.csv">base_seccion_anio.csv</a> — Resumen sección×año×cargo <span class="meta">(53,416 filas)</span></li>
+    <li><a href="entregables_n0/historial_partidos.csv">historial_partidos.csv</a> — Registro largo por partido (limpieza) <span class="meta">(456,167 filas)</span></li>
+    <li><a href="entregables_n0/base_seccion_anio_interpolada.csv">base_seccion_anio_interpolada.csv</a> — Serie remapeada N0.5 <span class="meta">(59,163 filas)</span></li>
+    <li><a href="entregables_n0/interpolacion_proporciones.csv">interpolacion_proporciones.csv</a> — Proporciones interpolación (auditable) <span class="meta">(26,798 filas)</span></li>
+    <li><a href="entregables_n0/catalogo_secciones.csv">catalogo_secciones.csv</a> — Catálogo territorial <span class="meta">(4,245 filas)</span></li>
+    <li><a href="entregables_n0/catalogo_elecciones.csv">catalogo_elecciones.csv</a> — Elecciones comparables <span class="meta">(15 filas)</span></li>
+    <li><a href="entregables_n0/catalogo_coalicion.csv">catalogo_coalicion.csv</a> — Catálogo de coaliciones <span class="meta">(142 filas)</span></li>
+    <li><a href="entregables_n0/homologacion_partidos_bloques.csv">homologacion_partidos_bloques.csv</a> — Homologación partido→bloque <span class="meta">(142 filas)</span></li>
+    <li><a href="entregables_n0/voto_combinado_coalicion.csv">voto_combinado_coalicion.csv</a> — Voto combinado coalición <span class="meta">(162,089 filas)</span></li>
+    <li><a href="entregables_n0/registro_satelites.csv">registro_satelites.csv</a> — Partidos satélite <span class="meta">(72 filas)</span></li>
+    <li><a href="entregables_n0/resumen_partidos_estatal.csv">resumen_partidos_estatal.csv</a> — Resumen estatal por partido <span class="meta">(141 filas)</span></li>
+    <li><a href="entregables_n0/inventario_fuentes.csv">inventario_fuentes.csv</a> — Inventario de fuentes <span class="meta">(16 filas)</span></li>
+    <li><a href="entregables_n0/reporte_anomalias.csv">reporte_anomalias.csv</a> — Anomalías y outliers (detalle) <span class="meta">(1,213 filas)</span></li>
+    <li><a href="entregables_n0/reporte_calidad.md">reporte_calidad.md</a> — Control calidad §0.6 + checklist §0.8 <span class="meta">(4.4 KB)</span></li>
+    <li><a href="entregables_n0/diccionario_datos.md">diccionario_datos.md</a> — Diccionario de variables <span class="meta">(8.7 KB)</span></li>
+    <li><a href="entregables_n0/bitacora_metodologica.md">bitacora_metodologica.md</a> — Bitácora metodológica <span class="meta">(5.1 KB)</span></li>
+    <li><a href="entregables_n0/vistas_demarcacion/vw_resultados_institucionales_distrito.csv">vistas_demarcacion/vw_resultados_institucionales_distrito.csv</a> — Vista demarcación · resultados institucionales <span class="meta">(120 filas)</span></li>
+    <li><a href="entregables_n0/vistas_demarcacion/vw_nivel1_demarcacion.csv">vistas_demarcacion/vw_nivel1_demarcacion.csv</a> — Vista demarcación · nivel 1 <span class="meta">(110 filas)</span></li>
+  </ul>
+  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>
   <p class="meta">Reporte pipeline generado: 2026-07-05T15:05:11</p>
 <table border="1" >
   <thead>

@@ -1,10 +1,13 @@
 ﻿entregable_pdf_0_7,archivos_en_repo,estado
 Base maestra electoral limpia,"base_maestra_largo.csv (478,280 filas); base_seccion_anio.csv (53,416 filas)",Presente
+Historial y limpieza,"historial_partidos.csv (456,167 filas)",Presente
 Diccionario de datos,diccionario_datos.md,Presente
 Catálogo de elecciones comparables,catalogo_elecciones.csv (15 filas),Presente
-Tabla de homologación partidaria,homologacion_partidos_bloques.csv (142 filas),Presente
+Catálogo territorial y coaliciones,"catalogo_secciones.csv (4,245 filas); catalogo_coalicion.csv (142 filas)",Presente
+Tabla de homologación partidaria,"homologacion_partidos_bloques.csv (142 filas); voto_combinado_coalicion.csv (162,089 filas)",Presente
 Reporte de calidad de datos,"reporte_calidad.md; reporte_anomalias.csv (1,213 filas)",Presente
 Inventario de fuentes,inventario_fuentes.csv (16 filas),Presente
-Catálogo territorial,"catalogo_secciones.csv (4,245 filas)",Presente
 Bitácora metodológica,bitacora_metodologica.md,Presente
-Serie remapeada (N0.5),"base_seccion_anio_interpolada.csv (59,163 filas)",Presente
+Serie remapeada (N0.5),"base_seccion_anio_interpolada.csv (59,163 filas); interpolacion_proporciones.csv (26,798 filas)",Presente
+Auxiliares pipeline,registro_satelites.csv (72 filas); resumen_partidos_estatal.csv (141 filas),Presente
+Vistas demarcación,vistas_demarcacion/vw_resultados_institucionales_distrito.csv (120 filas); vistas_demarcacion/vw_nivel1_demarcacion.csv (110 filas),Presente

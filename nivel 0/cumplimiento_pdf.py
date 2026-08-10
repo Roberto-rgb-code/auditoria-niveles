@@ -9,22 +9,103 @@ import pandas as pd
 
 from metricas import count_csv_rows
 
-# PDF Nivel 0 §0.7 → archivos en analisis/nivel0/ (generados por electoral_nivel0.py)
+# Todos los artefactos N0/N0.5 en analisis/nivel0/ (copia a salida/entregables_n0/)
+ARCHIVOS_ENTREGABLES: list[tuple[str, str]] = [
+    ("README.md", "Guía de entregables N0"),
+    ("base_maestra_largo.csv", "Base maestra formato largo"),
+    ("base_seccion_anio.csv", "Resumen sección×año×cargo"),
+    ("historial_partidos.csv", "Registro largo por partido (limpieza)"),
+    ("base_seccion_anio_interpolada.csv", "Serie remapeada N0.5"),
+    ("interpolacion_proporciones.csv", "Proporciones interpolación (auditable)"),
+    ("catalogo_secciones.csv", "Catálogo territorial"),
+    ("catalogo_elecciones.csv", "Elecciones comparables"),
+    ("catalogo_coalicion.csv", "Catálogo de coaliciones"),
+    ("homologacion_partidos_bloques.csv", "Homologación partido→bloque"),
+    ("voto_combinado_coalicion.csv", "Voto combinado coalición"),
+    ("registro_satelites.csv", "Partidos satélite"),
+    ("resumen_partidos_estatal.csv", "Resumen estatal por partido"),
+    ("inventario_fuentes.csv", "Inventario de fuentes"),
+    ("reporte_anomalias.csv", "Anomalías y outliers (detalle)"),
+    ("reporte_calidad.md", "Control calidad §0.6 + checklist §0.8"),
+    ("diccionario_datos.md", "Diccionario de variables"),
+    ("bitacora_metodologica.md", "Bitácora metodológica"),
+    (
+        "vistas_demarcacion/vw_resultados_institucionales_distrito.csv",
+        "Vista demarcación · resultados institucionales",
+    ),
+    (
+        "vistas_demarcacion/vw_nivel1_demarcacion.csv",
+        "Vista demarcación · nivel 1",
+    ),
+]
+
+CARPETA_ENTREGABLES = "entregables_n0"
+
+# PDF Nivel 0 §0.7 → agrupación para tabla del informe
 ENTREGABLES_PDF: list[tuple[str, list[str]]] = [
     ("Base maestra electoral limpia", ["base_maestra_largo.csv", "base_seccion_anio.csv"]),
+    ("Historial y limpieza", ["historial_partidos.csv"]),
     ("Diccionario de datos", ["diccionario_datos.md"]),
     ("Catálogo de elecciones comparables", ["catalogo_elecciones.csv"]),
-    ("Tabla de homologación partidaria", ["homologacion_partidos_bloques.csv"]),
+    ("Catálogo territorial y coaliciones", ["catalogo_secciones.csv", "catalogo_coalicion.csv"]),
+    ("Tabla de homologación partidaria", ["homologacion_partidos_bloques.csv", "voto_combinado_coalicion.csv"]),
     ("Reporte de calidad de datos", ["reporte_calidad.md", "reporte_anomalias.csv"]),
     ("Inventario de fuentes", ["inventario_fuentes.csv"]),
-    ("Catálogo territorial", ["catalogo_secciones.csv"]),
     ("Bitácora metodológica", ["bitacora_metodologica.md"]),
-    ("Serie remapeada (N0.5)", ["base_seccion_anio_interpolada.csv"]),
+    ("Serie remapeada (N0.5)", ["base_seccion_anio_interpolada.csv", "interpolacion_proporciones.csv"]),
+    ("Auxiliares pipeline", ["registro_satelites.csv", "resumen_partidos_estatal.csv"]),
+    ("Vistas demarcación", ["vistas_demarcacion/vw_resultados_institucionales_distrito.csv", "vistas_demarcacion/vw_nivel1_demarcacion.csv"]),
 ]
 
 PDF_INSTRUCCIONES = (
     "analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf"
 )
+
+
+def _filas_o_tamano(path: Path) -> str:
+    if path.suffix.lower() == ".csv":
+        n = count_csv_rows(path)
+        return f"{n:,} filas" if n >= 0 else "?"
+    kb = path.stat().st_size / 1024
+    return f"{kb:.1f} KB"
+
+
+def copiar_entregables_n0(n0: Path, salida: Path) -> pd.DataFrame:
+    """Copia todos los entregables N0 a salida/entregables_n0/ y devuelve manifiesto."""
+    dest_root = salida / CARPETA_ENTREGABLES
+    dest_root.mkdir(parents=True, exist_ok=True)
+    rows: list[dict] = []
+
+    for rel, descripcion in ARCHIVOS_ENTREGABLES:
+        src = n0 / rel
+        dst = dest_root / rel
+        if not src.is_file():
+            rows.append(
+                {
+                    "archivo": rel,
+                    "descripcion": descripcion,
+                    "copia_local": "",
+                    "detalle": "FALTA en analisis/nivel0",
+                    "estado": "Falta",
+                }
+            )
+            continue
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+        link = f"{CARPETA_ENTREGABLES}/{rel.replace(chr(92), '/')}"
+        rows.append(
+            {
+                "archivo": rel,
+                "descripcion": descripcion,
+                "copia_local": link,
+                "detalle": _filas_o_tamano(src),
+                "estado": "Copiado",
+            }
+        )
+
+    manifest = pd.DataFrame(rows)
+    manifest.to_csv(salida / "entregables_n0_manifest.csv", index=False, encoding="utf-8-sig")
+    return manifest
 
 
 def _parse_md_table(lines: list[str]) -> list[tuple[str, str, str]]:
@@ -134,6 +215,7 @@ def control_d4_vigente(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def copiar_reporte_calidad(n0: Path, salida: Path) -> Path | None:
+    """Copia reporte_calidad.md también en raíz de salida (atajo) si existe en N0."""
     src = n0 / "reporte_calidad.md"
     if not src.exists():
         return None
@@ -144,9 +226,9 @@ def copiar_reporte_calidad(n0: Path, salida: Path) -> Path | None:
 
 def texto_marco_pdf() -> str:
     return (
-        "Este informe en salida/ combina tres capas: (1) gráficos y narrativa del Distrito Local 4 "
-        "(diputado) para campaña; (2) entregables y pruebas del PDF "
-        f"«Nivel 0» ({PDF_INSTRUCCIONES}) ya materializados en analisis/nivel0/ por electoral_nivel0.py; "
-        "(3) pruebas adicionales solo sobre el subconjunto D4 vigente que alimenta los gráficos. "
-        "Los colores estratégicos (azul/dorado/naranja…) del PDF §0.1 corresponden al Nivel 1+, no a esta auditoría."
+        "Este informe combina narrativa del Distrito Local 4 (diputado) con el cumplimiento del PDF "
+        f"«Nivel 0» ({PDF_INSTRUCCIONES}). Todos los entregables del pipeline "
+        "(base maestra, catálogos, reportes, bitácora, N0.5) se copian a "
+        f"salida/{CARPETA_ENTREGABLES}/ al ejecutar la auditoría. "
+        "Los colores estratégicos del PDF §0.1 corresponden al Nivel 1+."
     )

@@ -5,3 +5,6 @@ __pycache__/
 venv/
 .env
 *.log
+
+# Copias pesadas de analisis/nivel0/ (regenerar con ejecutar_auditoria.py)
+nivel 0/salida/entregables_n0/

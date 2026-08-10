@@ -55,6 +55,7 @@ def _bloque_cumplimiento_html(
     qa_d4: pd.DataFrame | None,
     checklist: list[str] | None,
     nota_calidad: str,
+    manifest_entregables: pd.DataFrame | None = None,
 ) -> list[str]:
     if not marco_pdf:
         return []
@@ -64,13 +65,34 @@ def _bloque_cumplimiento_html(
         f"    <p>{_esc(marco_pdf)}</p>\n",
         "    <p class=\"meta\">Especificación: "
         "<code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · "
-        "Copia en esta carpeta: <code>control_calidad_jalisco_n0.md</code>, "
-        "<code>entregables_pdf_0_7.csv</code>, <code>control_calidad_d4_vigente.csv</code>.</p>\n",
+        "Copia en esta carpeta: "
+        f"<code>entregables_n0/</code> (todos los CSV/MD del N0) · "
+        "Manifiesto: <code>entregables_n0_manifest.csv</code> · "
+        "Atajo calidad: <code>control_calidad_jalisco_n0.md</code>.</p>\n",
         "  </div>\n",
     ]
     if entregables is not None and not entregables.empty:
-        parts.append("  <h3>Entregables §0.7 (analisis/nivel0/)</h3>\n")
+        parts.append("  <h3>Entregables §0.7 (resumen)</h3>\n")
         parts.append(entregables.to_html(index=False).replace('class="dataframe"', ""))
+
+    if manifest_entregables is not None and not manifest_entregables.empty:
+        parts.append('  <h3 id="archivos-n0">Archivos copiados en salida/entregables_n0/</h3>\n')
+        parts.append("  <p>Descarga o abre cada entregable desde esta carpeta (misma copia que analisis/nivel0/).</p>\n")
+        parts.append("  <ul class=\"lista-entregables\">\n")
+        for _, r in manifest_entregables.iterrows():
+            link = str(r.get("copia_local") or "")
+            nombre = _esc(str(r["archivo"]))
+            desc = _esc(str(r["descripcion"]))
+            det = _esc(str(r["detalle"]))
+            est = str(r["estado"])
+            if link and est == "Copiado":
+                parts.append(
+                    f'    <li><a href="{_esc(link)}">{nombre}</a> — {desc} '
+                    f"<span class=\"meta\">({det})</span></li>\n"
+                )
+            else:
+                parts.append(f"    <li>{nombre} — {desc} <strong>{_esc(est)}</strong></li>\n")
+        parts.append("  </ul>\n")
     if qa_jalisco:
         parts.append("  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>\n")
         if nota_calidad:
@@ -110,6 +132,7 @@ def build_html(
     qa_d4: pd.DataFrame | None = None,
     checklist: list[str] | None = None,
     nota_calidad: str = "",
+    manifest_entregables: pd.DataFrame | None = None,
     version_informe: str = "2026-08-09-pdf",
 ) -> None:
     agg_html = agg.to_html(index=False, float_format=lambda x: f"{x:,.2f}" if isinstance(x, float) else f"{x:,}")
@@ -134,6 +157,8 @@ def build_html(
     .indice {{ background: #f0fdf4; border: 1px solid #86efac; padding: 0.85rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.95rem; }}
     .indice a {{ color: #047857; }}
     .pdf-cumplimiento {{ background: #ecfdf5; border-left: 5px solid #059669; padding: 1rem 1.15rem; margin: 0.5rem 0 1.25rem; }}
+    .lista-entregables {{ font-size: 0.92rem; line-height: 1.45; }}
+    .lista-entregables a {{ font-weight: 600; }}
     table {{ border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.9rem; }}
     th, td {{ border: 1px solid #cbd5e1; padding: 0.4rem 0.6rem; text-align: left; }}
     th {{ background: #f1f5f9; }}
@@ -149,6 +174,7 @@ def build_html(
   <nav class="indice" aria-label="Indice">
     <strong>Indice:</strong>
     <a href="#cumplimiento-pdf">Cumplimiento PDF Nivel 0</a> ·
+    <a href="#archivos-n0">Archivos N0</a> ·
     <a href="#guia-rapida">Guía rápida D4</a> ·
     <a href="#graficos">Gráficos</a> ·
     <a href="#tabla-anios">Tabla por año</a> ·
@@ -164,6 +190,7 @@ def build_html(
         qa_d4=qa_d4,
         checklist=checklist,
         nota_calidad=nota_calidad,
+        manifest_entregables=manifest_entregables,
     )
     body_parts.extend(cumplimiento)
 

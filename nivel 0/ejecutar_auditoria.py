@@ -50,6 +50,7 @@ from interpretaciones import (
 from reporte import build_html, build_pdf, narrativa
 from cumplimiento_pdf import (
     control_d4_vigente,
+    copiar_entregables_n0,
     copiar_reporte_calidad,
     leer_control_calidad,
     tabla_entregables,
@@ -149,6 +150,7 @@ def main() -> None:
 
     calidad = leer_control_calidad(n0)
     entregables = tabla_entregables(n0)
+    manifest = copiar_entregables_n0(n0, SALIDA)
     qa_d4 = control_d4_vigente(d4_vig)
     marco = texto_marco_pdf()
     copiar_reporte_calidad(n0, SALIDA)
@@ -173,7 +175,8 @@ def main() -> None:
         qa_d4=qa_d4,
         checklist=calidad["checklist"],
         nota_calidad=calidad.get("nota", ""),
-        version_informe="2026-08-09-pdf",
+        manifest_entregables=manifest,
+        version_informe="2026-08-09-entregables",
     )
 
     pdf_path = SALIDA / "informe_auditoria_n0.pdf"
