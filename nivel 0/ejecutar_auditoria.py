@@ -173,6 +173,7 @@ def main() -> None:
         qa_d4=qa_d4,
         checklist=calidad["checklist"],
         nota_calidad=calidad.get("nota", ""),
+        version_informe="2026-08-09-pdf",
     )
 
     pdf_path = SALIDA / "informe_auditoria_n0.pdf"

@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"/>
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>
   <title>Auditoria Nivel 0 · Distrito Local 4 · Diputacion</title>
   <style>
     body { font-family: Georgia, 'Segoe UI', serif; max-width: 920px; margin: 2rem auto; padding: 0 1.25rem; color: #1e293b; line-height: 1.55; }
@@ -9,6 +10,10 @@
     h2 { color: #334e68; margin-top: 2rem; }
     h3 { color: #627d98; }
     .meta { color: #64748b; font-size: 0.95rem; }
+    .badge { display: inline-block; background: #059669; color: #fff; font-size: 0.8rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle; }
+    .indice { background: #f0fdf4; border: 1px solid #86efac; padding: 0.85rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
+    .indice a { color: #047857; }
+    .pdf-cumplimiento { background: #ecfdf5; border-left: 5px solid #059669; padding: 1rem 1.15rem; margin: 0.5rem 0 1.25rem; }
     table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.9rem; }
     th, td { border: 1px solid #cbd5e1; padding: 0.4rem 0.6rem; text-align: left; }
     th { background: #f1f5f9; }
@@ -19,214 +24,21 @@
   </style>
 </head>
 <body>
-  <h1>Auditoria Nivel 0 · Distrito Local 4 · Diputacion</h1>
-  <p class="meta">Generado: 2026-08-09 · Fuente: <code>analisis/nivel0/</code> (repo local)</p>
-  <h2>Guia rapida (lee esto primero)</h2>
-  <div class="guia">
-  <p>Estamos mirando solo el Distrito Local 4 (Zapopan y zona aledana en la cartografia vigente), cargo diputado local, usando datos oficiales ya limpiados.</p>
-  <p>En 2024 hubo 167 secciones con datos. Sumando todo el distrito, Movimiento Ciudadano (MC) obtuvo aprox. 39.5% de los votos validos y la coalicion MORENA-4T aprox. 40.1% — casi empate en votos totales.</p>
-  <p>Pero si cuentas &#x27;quien gano cada casilla/seccion&#x27; (mini-territorios), MC gano 84 secciones y MORENA-4T gano 83. Eso puede ser 84 vs 83 aunque los porcentajes totales sean parejos.</p>
-  <p>Los graficos de abajo cuentan la misma historia año por año. Las &#x27;banderas&#x27; al final son avisos de datos raros en actas; no cambian el ganador por si solas.</p>
+  <h1>Auditoria Nivel 0 · Distrito Local 4 · Diputacion<span class="badge">PDF §0.6–0.8</span></h1>
+  <p class="meta">Generado: 2026-08-09 · Versión informe: 2026-08-09-pdf · Fuente: <code>analisis/nivel0/</code></p>
+  <nav class="indice" aria-label="Indice">
+    <strong>Indice:</strong>
+    <a href="#cumplimiento-pdf">Cumplimiento PDF Nivel 0</a> ·
+    <a href="#guia-rapida">Guía rápida D4</a> ·
+    <a href="#graficos">Gráficos</a> ·
+    <a href="#tabla-anios">Tabla por año</a> ·
+    <a href="#metodologia">Detalle metodológico</a>
+  </nav>
+  <h2 id="cumplimiento-pdf">Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>
+  <div class="pdf-cumplimiento">
+    <p>Este informe en salida/ combina tres capas: (1) gráficos y narrativa del Distrito Local 4 (diputado) para campaña; (2) entregables y pruebas del PDF «Nivel 0» (analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf) ya materializados en analisis/nivel0/ por electoral_nivel0.py; (3) pruebas adicionales solo sobre el subconjunto D4 vigente que alimenta los gráficos. Los colores estratégicos (azul/dorado/naranja…) del PDF §0.1 corresponden al Nivel 1+, no a esta auditoría.</p>
+    <p class="meta">Especificación: <code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · Copia en esta carpeta: <code>control_calidad_jalisco_n0.md</code>, <code>entregables_pdf_0_7.csv</code>, <code>control_calidad_d4_vigente.csv</code>.</p>
   </div>
-  <h2>Graficos · que mirar y que significa</h2>
-  <p>Cada figura va seguida de una nota en caja amarilla. No hace falta ser experto: lee <strong>Que es</strong>, luego <strong>Como leerlo</strong>, luego <strong>En plano</strong>.</p>
-  <h3>Grafico 1 · Evolucion MC vs MORENA-4T (porcentajes)</h3>
-  <img src="01_evolucion_pct_mc_4t.png" alt="Grafico 1 · Evolucion MC vs MORENA-4T (porcentajes)"/>
-  <div class="nota">
-    <p><strong>Que es:</strong> Barras naranja = porcentaje de MC; barras vino = porcentaje MORENA-4T; linea gris = cuantas secciones sumamos ese año.</p>
-    <p><strong>Como leerlo:</strong> Mira de izquierda a derecha (2009 → 2024). Si una barra sube, ese bloque se llevo mas proporcion del pastel de votos validos del distrito entero ese año.</p>
-    <p><strong>En plano:</strong> MC casi no aparece en 2009 (barra bajita). Crece hasta 2015–2021. MORENA-4T despega fuerte en 2018 (cuando ya compite como bloque homologado). En 2024 las dos barras miden casi lo mismo (39.5% vs 40.1%) — carrera muy cerrada a nivel distrito.</p>
-    <p><strong>La linea gris:</strong> Si en un año hay menos de 167 secciones, faltan pedazos del mapa actual (años viejos antes del redistritaje); no es que &#x27;faltaran votos&#x27;, sino que ese territorio pertenecia a otro distrito en esa epoca.</p>
-  </div>
-  <h3>Grafico 2 · Votos totales por bloque (numeros grandes)</h3>
-  <img src="02_votos_absolutos.png" alt="Grafico 2 · Votos totales por bloque (numeros grandes)"/>
-  <div class="nota">
-    <p><strong>Que es:</strong> Cada columna es un año; la altura total es todos los votos validos del D4; colores = PAN, PRI, Otros, MC y MORENA-4T apilados.</p>
-    <p><strong>Como leerlo:</strong> Columna mas alta = año con mas votos validos en total (mas gente voto o crecio el padron). El color que &#x27;come&#x27; mas espacio es el bloque con mas votos ese año.</p>
-    <p><strong>En plano:</strong> Arriba del todo suele dominar MC + MORENA-4T en años recientes; abajo quedan PAN/PRI/Otros. Sirve para ver no solo el duelo MC–4T sino donde se fueron los votos del resto de partidos.</p>
-  </div>
-  <h3>Grafico 3 · Quien gano cada seccion en 2024</h3>
-  <img src="03_ganador_2024.png" alt="Grafico 3 · Quien gano cada seccion en 2024"/>
-  <div class="nota">
-    <p><strong>Que es:</strong> Pastel de 2024: cada rebanada = cuantas secciones gano cada bloque (gana quien tuvo mas votos en esa seccion).</p>
-    <p><strong>Como leerlo:</strong> MC 84 rebanadas vs MORENA-4T 83 — casi mitad y mitad del territorio en &#x27;mini-elecciones&#x27; locales.</p>
-    <p><strong>No confundir:</strong> Esto NO es &#x27;MC tuvo 50% de votos en Jalisco&#x27;. Es solo conteo de secciones ganadas dentro del D4. Los porcentajes de votos reales estan en el grafico 1.</p>
-  </div>
-  <h3>Grafico 4 · Avisos de calidad (NO es quien gano)</h3>
-  <img src="04_banderas_calidad.png" alt="Grafico 4 · Avisos de calidad (NO es quien gano)"/>
-  <div class="nota">
-    <p><strong>Que es:</strong> NO es un grafico de votos ni de quien gano. Es un chequeo del archivo: tenemos 975 &#x27;filas&#x27; en total (cada fila = una seccion en un año de eleccion, solo diputado D4). El sistema pone etiquetas cuando algo falta o es confuso en la acta.</p>
-    <p><strong>Como leerlo:</strong> Cada barra dice &#x27;en cuantas filas aparecio este aviso&#x27;. El numero entre parentesis es de esas filas totales. Ejemplo: 641 (66%) significa que en 66 de cada 100 filas no venia lista nominal (padron) en la fuente original — tipico en elecciones viejas, no significa fraude. 475 (49%) = boleta con coaliciones donde repartir votos a MC/4T es mas trabajoso. {n_out:,} fila(s) = numeros de acta raros (revisar a mano).</p>
-    <p><strong>En plano:</strong> Imagina 975 hojas de Excel (sección × año). 641 hojas dicen &#x27;no traigo padron&#x27;; 475 dicen &#x27;boleta complicada&#x27;; 1 dice &#x27;ojo, numeros raros&#x27;. Igual usamos los votos de esas hojas en los graficos 1–3; solo sabemos que hay que interpretar con cuidado.</p>
-    <p><strong>No confundir:</strong> Barra grande NO quiere decir &#x27;MC perdio esas secciones&#x27;. No habla de ganadores; solo de calidad del registro electoral.</p>
-  </div>
-  <h3>Grafico 5 · Cuantas secciones entran por año</h3>
-  <img src="05_secciones_inst_vs_vigente.png" alt="Grafico 5 · Cuantas secciones entran por año"/>
-  <div class="nota">
-    <p><strong>Que es:</strong> Comparacion de cuantas secciones entran al analisis cada año. Gris = corte institucional (como decia el acta de ese año); azul = corte vigente (mapa D4 de hoy).</p>
-    <p><strong>Como leerlo:</strong> Cuando las barras azules llegan a 167, ya tienes el distrito completo actual. Gris mas bajo en años viejos = parte del territorio de hoy votaba en otro distrito entonces.</p>
-    <p><strong>En plano:</strong> En total hay 975 filas vigentes vs 675 institucionales en la base — la campana usa el corte azul para hablar siempre del mismo D4 de 167 secciones.</p>
-  </div>
-  <h2>Como leer la tabla de numeros</h2>
-  <p>Cada fila es un año de eleccion. No es una persona: es la suma de todas las secciones del D4.</p>
-  <p>• anio: año de la elección.
-• secciones: cuantas secciones electorales entran en el conteo ese año (167 es el D4 completo hoy).
-• validos: total de votos validos sumados en todo el distrito (numero grande, no porcentaje).
-• pct_mc / pct_4t: de cada 100 votos validos del distrito, cuantos fueron para MC o para MORENA-4T.
-• outliers: cuantas secciones-año tuvieron un dato sospechoso (ver glosario); en 2021 aparece 1.</p>
-  <h2>Tabla de numeros por año</h2>
-<table border="1" >
-  <thead>
-    <tr style="text-align: right;">
-      <th>anio</th>
-      <th>secciones</th>
-      <th>validos</th>
-      <th>mc</th>
-      <th>m4t</th>
-      <th>pan</th>
-      <th>pri</th>
-      <th>otros</th>
-      <th>outliers</th>
-      <th>pct_mc</th>
-      <th>pct_4t</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>2009</td>
-      <td>141</td>
-      <td>117,973.00</td>
-      <td>1,552.00</td>
-      <td>0.00</td>
-      <td>38,889.00</td>
-      <td>65,011.00</td>
-      <td>12,521.00</td>
-      <td>0</td>
-      <td>1.32</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <td>2012</td>
-      <td>166</td>
-      <td>170,191.00</td>
-      <td>35,456.00</td>
-      <td>0.00</td>
-      <td>47,428.00</td>
-      <td>74,334.00</td>
-      <td>12,976.00</td>
-      <td>0</td>
-      <td>20.83</td>
-      <td>0.00</td>
-    </tr>
-    <tr>
-      <td>2015</td>
-      <td>167</td>
-      <td>138,736.00</td>
-      <td>48,295.00</td>
-      <td>4,145.00</td>
-      <td>20,503.00</td>
-      <td>48,954.00</td>
-      <td>16,830.00</td>
-      <td>0</td>
-      <td>34.81</td>
-      <td>2.99</td>
-    </tr>
-    <tr>
-      <td>2018</td>
-      <td>167</td>
-      <td>146,470.00</td>
-      <td>41,191.00</td>
-      <td>51,768.00</td>
-      <td>20,758.00</td>
-      <td>24,431.00</td>
-      <td>8,323.00</td>
-      <td>0</td>
-      <td>28.12</td>
-      <td>35.34</td>
-    </tr>
-    <tr>
-      <td>2021</td>
-      <td>167</td>
-      <td>148,074.00</td>
-      <td>55,042.00</td>
-      <td>36,511.00</td>
-      <td>14,845.00</td>
-      <td>14,157.00</td>
-      <td>27,529.00</td>
-      <td>1</td>
-      <td>37.17</td>
-      <td>24.66</td>
-    </tr>
-    <tr>
-      <td>2024</td>
-      <td>167</td>
-      <td>199,489.00</td>
-      <td>78,900.00</td>
-      <td>79,955.00</td>
-      <td>25,308.00</td>
-      <td>15,330.00</td>
-      <td>0.00</td>
-      <td>0</td>
-      <td>39.55</td>
-      <td>40.08</td>
-    </tr>
-  </tbody>
-</table>  <h2>Ganador por seccion en 2024</h2>
-  <p>En 2024 hay 167 secciones en el D4 vigente. Por cada una se mira quien tuvo mas votos:
-  — MC: 84 secciones (50.3% del territorio en piezas).
-  — MORENA_4T: 83 secciones (49.7% del territorio en piezas).
-Importante: ganar mas secciones no siempre significa mas votos en total; se puede ganar muchas secciones chicas y perder en votos si el rival gana secciones muy pobladas.</p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>secciones</th>
-    </tr>
-    <tr>
-      <th>ganador_bloque</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>MC</th>
-      <td>84</td>
-    </tr>
-    <tr>
-      <th>MORENA_4T</th>
-      <td>83</td>
-    </tr>
-  </tbody>
-</table>  <h2>Banderas de calidad (conteo)</h2>
-  <p>Piensa en esto como 'alarmas suaves' en los datos. El numero dice cuantas veces aparecio esa alarma en alguna seccion y año del D4.</p>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>flag</th>
-      <th>n</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>flag_outlier</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>flag_datos_incompletos</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <td>flag_coalicion_compleja</td>
-      <td>475</td>
-    </tr>
-    <tr>
-      <td>flag_lista_nominal_faltante</td>
-      <td>641</td>
-    </tr>
-  </tbody>
-</table>  <h2>Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>
-  <p>Este informe en salida/ combina tres capas: (1) gráficos y narrativa del Distrito Local 4 (diputado) para campaña; (2) entregables y pruebas del PDF «Nivel 0» (analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf) ya materializados en analisis/nivel0/ por electoral_nivel0.py; (3) pruebas adicionales solo sobre el subconjunto D4 vigente que alimenta los gráficos. Los colores estratégicos (azul/dorado/naranja…) del PDF §0.1 corresponden al Nivel 1+, no a esta auditoría.</p>
-  <p class="meta">Especificación: <code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · Copia del reporte estatal: <code>control_calidad_jalisco_n0.md</code> en esta carpeta.</p>
   <h3>Entregables §0.7 (analisis/nivel0/)</h3>
 <table border="1" >
   <thead>
@@ -388,7 +200,210 @@ Importante: ganar mas secciones no siempre significa mas votos en total; se pued
     <li>**¿Se puede calcular participación y voto por bloque?** Voto por bloque: sí (todos los años/cargos). Participación: solo 2021 y 2024.</li>
     <li>**¿La base puede auditarse y replicarse?** Sí: pipeline único (`electoral_nivel0.py`) + bitácora + reportes.</li>
   </ul>
-  <h2>Detalle metodologico</h2>
+  <h2 id="guia-rapida">Guia rapida (lee esto primero)</h2>
+  <div class="guia">
+  <p>Estamos mirando solo el Distrito Local 4 (Zapopan y zona aledana en la cartografia vigente), cargo diputado local, usando datos oficiales ya limpiados.</p>
+  <p>En 2024 hubo 167 secciones con datos. Sumando todo el distrito, Movimiento Ciudadano (MC) obtuvo aprox. 39.5% de los votos validos y la coalicion MORENA-4T aprox. 40.1% — casi empate en votos totales.</p>
+  <p>Pero si cuentas &#x27;quien gano cada casilla/seccion&#x27; (mini-territorios), MC gano 84 secciones y MORENA-4T gano 83. Eso puede ser 84 vs 83 aunque los porcentajes totales sean parejos.</p>
+  <p>Los graficos de abajo cuentan la misma historia año por año. Las &#x27;banderas&#x27; al final son avisos de datos raros en actas; no cambian el ganador por si solas.</p>
+  </div>
+  <h2 id="graficos">Graficos · que mirar y que significa</h2>
+  <p>Cada figura va seguida de una nota en caja amarilla. No hace falta ser experto: lee <strong>Que es</strong>, luego <strong>Como leerlo</strong>, luego <strong>En plano</strong>.</p>
+  <h3>Grafico 1 · Evolucion MC vs MORENA-4T (porcentajes)</h3>
+  <img src="01_evolucion_pct_mc_4t.png" alt="Grafico 1 · Evolucion MC vs MORENA-4T (porcentajes)"/>
+  <div class="nota">
+    <p><strong>Que es:</strong> Barras naranja = porcentaje de MC; barras vino = porcentaje MORENA-4T; linea gris = cuantas secciones sumamos ese año.</p>
+    <p><strong>Como leerlo:</strong> Mira de izquierda a derecha (2009 → 2024). Si una barra sube, ese bloque se llevo mas proporcion del pastel de votos validos del distrito entero ese año.</p>
+    <p><strong>En plano:</strong> MC casi no aparece en 2009 (barra bajita). Crece hasta 2015–2021. MORENA-4T despega fuerte en 2018 (cuando ya compite como bloque homologado). En 2024 las dos barras miden casi lo mismo (39.5% vs 40.1%) — carrera muy cerrada a nivel distrito.</p>
+    <p><strong>La linea gris:</strong> Si en un año hay menos de 167 secciones, faltan pedazos del mapa actual (años viejos antes del redistritaje); no es que &#x27;faltaran votos&#x27;, sino que ese territorio pertenecia a otro distrito en esa epoca.</p>
+  </div>
+  <h3>Grafico 2 · Votos totales por bloque (numeros grandes)</h3>
+  <img src="02_votos_absolutos.png" alt="Grafico 2 · Votos totales por bloque (numeros grandes)"/>
+  <div class="nota">
+    <p><strong>Que es:</strong> Cada columna es un año; la altura total es todos los votos validos del D4; colores = PAN, PRI, Otros, MC y MORENA-4T apilados.</p>
+    <p><strong>Como leerlo:</strong> Columna mas alta = año con mas votos validos en total (mas gente voto o crecio el padron). El color que &#x27;come&#x27; mas espacio es el bloque con mas votos ese año.</p>
+    <p><strong>En plano:</strong> Arriba del todo suele dominar MC + MORENA-4T en años recientes; abajo quedan PAN/PRI/Otros. Sirve para ver no solo el duelo MC–4T sino donde se fueron los votos del resto de partidos.</p>
+  </div>
+  <h3>Grafico 3 · Quien gano cada seccion en 2024</h3>
+  <img src="03_ganador_2024.png" alt="Grafico 3 · Quien gano cada seccion en 2024"/>
+  <div class="nota">
+    <p><strong>Que es:</strong> Pastel de 2024: cada rebanada = cuantas secciones gano cada bloque (gana quien tuvo mas votos en esa seccion).</p>
+    <p><strong>Como leerlo:</strong> MC 84 rebanadas vs MORENA-4T 83 — casi mitad y mitad del territorio en &#x27;mini-elecciones&#x27; locales.</p>
+    <p><strong>No confundir:</strong> Esto NO es &#x27;MC tuvo 50% de votos en Jalisco&#x27;. Es solo conteo de secciones ganadas dentro del D4. Los porcentajes de votos reales estan en el grafico 1.</p>
+  </div>
+  <h3>Grafico 4 · Avisos de calidad (NO es quien gano)</h3>
+  <img src="04_banderas_calidad.png" alt="Grafico 4 · Avisos de calidad (NO es quien gano)"/>
+  <div class="nota">
+    <p><strong>Que es:</strong> NO es un grafico de votos ni de quien gano. Es un chequeo del archivo: tenemos 975 &#x27;filas&#x27; en total (cada fila = una seccion en un año de eleccion, solo diputado D4). El sistema pone etiquetas cuando algo falta o es confuso en la acta.</p>
+    <p><strong>Como leerlo:</strong> Cada barra dice &#x27;en cuantas filas aparecio este aviso&#x27;. El numero entre parentesis es de esas filas totales. Ejemplo: 641 (66%) significa que en 66 de cada 100 filas no venia lista nominal (padron) en la fuente original — tipico en elecciones viejas, no significa fraude. 475 (49%) = boleta con coaliciones donde repartir votos a MC/4T es mas trabajoso. 1 fila(s) = numeros de acta raros (revisar a mano).</p>
+    <p><strong>En plano:</strong> Imagina 975 hojas de Excel (sección × año). 641 hojas dicen &#x27;no traigo padron&#x27;; 475 dicen &#x27;boleta complicada&#x27;; 1 dice &#x27;ojo, numeros raros&#x27;. Igual usamos los votos de esas hojas en los graficos 1–3; solo sabemos que hay que interpretar con cuidado.</p>
+    <p><strong>No confundir:</strong> Barra grande NO quiere decir &#x27;MC perdio esas secciones&#x27;. No habla de ganadores; solo de calidad del registro electoral.</p>
+  </div>
+  <h3>Grafico 5 · Cuantas secciones entran por año</h3>
+  <img src="05_secciones_inst_vs_vigente.png" alt="Grafico 5 · Cuantas secciones entran por año"/>
+  <div class="nota">
+    <p><strong>Que es:</strong> Comparacion de cuantas secciones entran al analisis cada año. Gris = corte institucional (como decia el acta de ese año); azul = corte vigente (mapa D4 de hoy).</p>
+    <p><strong>Como leerlo:</strong> Cuando las barras azules llegan a 167, ya tienes el distrito completo actual. Gris mas bajo en años viejos = parte del territorio de hoy votaba en otro distrito entonces.</p>
+    <p><strong>En plano:</strong> En total hay 975 filas vigentes vs 675 institucionales en la base — la campana usa el corte azul para hablar siempre del mismo D4 de 167 secciones.</p>
+  </div>
+  <h2>Como leer la tabla de numeros</h2>
+  <p>Cada fila es un año de eleccion. No es una persona: es la suma de todas las secciones del D4.</p>
+  <p>• anio: año de la elección.
+• secciones: cuantas secciones electorales entran en el conteo ese año (167 es el D4 completo hoy).
+• validos: total de votos validos sumados en todo el distrito (numero grande, no porcentaje).
+• pct_mc / pct_4t: de cada 100 votos validos del distrito, cuantos fueron para MC o para MORENA-4T.
+• outliers: cuantas secciones-año tuvieron un dato sospechoso (ver glosario); en 2021 aparece 1.</p>
+  <h2 id="tabla-anios">Tabla de numeros por año</h2>
+<table border="1" >
+  <thead>
+    <tr style="text-align: right;">
+      <th>anio</th>
+      <th>secciones</th>
+      <th>validos</th>
+      <th>mc</th>
+      <th>m4t</th>
+      <th>pan</th>
+      <th>pri</th>
+      <th>otros</th>
+      <th>outliers</th>
+      <th>pct_mc</th>
+      <th>pct_4t</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2009</td>
+      <td>141</td>
+      <td>117,973.00</td>
+      <td>1,552.00</td>
+      <td>0.00</td>
+      <td>38,889.00</td>
+      <td>65,011.00</td>
+      <td>12,521.00</td>
+      <td>0</td>
+      <td>1.32</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <td>2012</td>
+      <td>166</td>
+      <td>170,191.00</td>
+      <td>35,456.00</td>
+      <td>0.00</td>
+      <td>47,428.00</td>
+      <td>74,334.00</td>
+      <td>12,976.00</td>
+      <td>0</td>
+      <td>20.83</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <td>2015</td>
+      <td>167</td>
+      <td>138,736.00</td>
+      <td>48,295.00</td>
+      <td>4,145.00</td>
+      <td>20,503.00</td>
+      <td>48,954.00</td>
+      <td>16,830.00</td>
+      <td>0</td>
+      <td>34.81</td>
+      <td>2.99</td>
+    </tr>
+    <tr>
+      <td>2018</td>
+      <td>167</td>
+      <td>146,470.00</td>
+      <td>41,191.00</td>
+      <td>51,768.00</td>
+      <td>20,758.00</td>
+      <td>24,431.00</td>
+      <td>8,323.00</td>
+      <td>0</td>
+      <td>28.12</td>
+      <td>35.34</td>
+    </tr>
+    <tr>
+      <td>2021</td>
+      <td>167</td>
+      <td>148,074.00</td>
+      <td>55,042.00</td>
+      <td>36,511.00</td>
+      <td>14,845.00</td>
+      <td>14,157.00</td>
+      <td>27,529.00</td>
+      <td>1</td>
+      <td>37.17</td>
+      <td>24.66</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>167</td>
+      <td>199,489.00</td>
+      <td>78,900.00</td>
+      <td>79,955.00</td>
+      <td>25,308.00</td>
+      <td>15,330.00</td>
+      <td>0.00</td>
+      <td>0</td>
+      <td>39.55</td>
+      <td>40.08</td>
+    </tr>
+  </tbody>
+</table>  <h2>Ganador por seccion en 2024</h2>
+  <p>En 2024 hay 167 secciones en el D4 vigente. Por cada una se mira quien tuvo mas votos:
+  — MC: 84 secciones (50.3% del territorio en piezas).
+  — MORENA_4T: 83 secciones (49.7% del territorio en piezas).
+Importante: ganar mas secciones no siempre significa mas votos en total; se puede ganar muchas secciones chicas y perder en votos si el rival gana secciones muy pobladas.</p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>secciones</th>
+    </tr>
+    <tr>
+      <th>ganador_bloque</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>MC</th>
+      <td>84</td>
+    </tr>
+    <tr>
+      <th>MORENA_4T</th>
+      <td>83</td>
+    </tr>
+  </tbody>
+</table>  <h2>Banderas de calidad (conteo)</h2>
+  <p>Piensa en esto como 'alarmas suaves' en los datos. El numero dice cuantas veces aparecio esa alarma en alguna seccion y año del D4.</p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>flag</th>
+      <th>n</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>flag_outlier</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>flag_datos_incompletos</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>flag_coalicion_compleja</td>
+      <td>475</td>
+    </tr>
+    <tr>
+      <td>flag_lista_nominal_faltante</td>
+      <td>641</td>
+    </tr>
+  </tbody>
+</table>  <h2 id="metodologia">Detalle metodologico</h2>
   <h3>1. Que es el Nivel 0</h3>
   <p>El Nivel 0 del pipeline v3 es la capa de hechos electorales limpios: votos por seccion, año y cargo, homologados a bloques (MC, MORENA 4T, PAN, PRI, OTROS). No incluye indices estrategicos (eso empieza en N1–N5). Aqui auditamos que los archivos del repo sean coherentes y que el Distrito Local 4 (D4) tenga una serie interpretable para diputacion de mayoria relativa.</p>
   <h3>2. Fuentes de datos (repo)</h3>

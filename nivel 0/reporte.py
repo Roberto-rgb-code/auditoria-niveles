@@ -47,6 +47,51 @@ def _nota_html(nota: str) -> str:
     return '  <div class="nota">\n    ' + "\n    ".join(blocks) + "\n  </div>\n"
 
 
+def _bloque_cumplimiento_html(
+    *,
+    marco_pdf: str,
+    entregables: pd.DataFrame | None,
+    qa_jalisco: list[tuple[str, str, str]] | None,
+    qa_d4: pd.DataFrame | None,
+    checklist: list[str] | None,
+    nota_calidad: str,
+) -> list[str]:
+    if not marco_pdf:
+        return []
+    parts = [
+        '  <h2 id="cumplimiento-pdf">Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>\n',
+        '  <div class="pdf-cumplimiento">\n',
+        f"    <p>{_esc(marco_pdf)}</p>\n",
+        "    <p class=\"meta\">Especificación: "
+        "<code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · "
+        "Copia en esta carpeta: <code>control_calidad_jalisco_n0.md</code>, "
+        "<code>entregables_pdf_0_7.csv</code>, <code>control_calidad_d4_vigente.csv</code>.</p>\n",
+        "  </div>\n",
+    ]
+    if entregables is not None and not entregables.empty:
+        parts.append("  <h3>Entregables §0.7 (analisis/nivel0/)</h3>\n")
+        parts.append(entregables.to_html(index=False).replace('class="dataframe"', ""))
+    if qa_jalisco:
+        parts.append("  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>\n")
+        if nota_calidad:
+            parts.append(f"  <p class=\"meta\">{_esc(nota_calidad)}</p>\n")
+        qa_df = pd.DataFrame(qa_jalisco, columns=["Prueba", "Criterio", "Resultado"])
+        parts.append(qa_df.to_html(index=False).replace('class="dataframe"', ""))
+    if qa_d4 is not None and not qa_d4.empty:
+        parts.append("  <h3>Control §0.6 · corte D4 vigente (diputado)</h3>\n")
+        parts.append(
+            "  <p>Complemento local: mismas banderas, filtradas al distrito 4 con cartografía vigente.</p>\n"
+        )
+        parts.append(qa_d4.to_html(index=False).replace('class="dataframe"', ""))
+    if checklist:
+        parts.append("  <h3>Checklist ejecutivo §0.8</h3>\n")
+        parts.append("  <ul>\n")
+        for item in checklist:
+            parts.append(f"    <li>{_esc(item)}</li>\n")
+        parts.append("  </ul>\n")
+    return parts
+
+
 def build_html(
     out_path: Path,
     *,
@@ -65,6 +110,7 @@ def build_html(
     qa_d4: pd.DataFrame | None = None,
     checklist: list[str] | None = None,
     nota_calidad: str = "",
+    version_informe: str = "2026-08-09-pdf",
 ) -> None:
     agg_html = agg.to_html(index=False, float_format=lambda x: f"{x:,.2f}" if isinstance(x, float) else f"{x:,}")
     flags_html = flags.to_html(index=False)
@@ -76,6 +122,7 @@ def build_html(
 <html lang="es">
 <head>
   <meta charset="utf-8"/>
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate"/>
   <title>{_esc(titulo)}</title>
   <style>
     body {{ font-family: Georgia, 'Segoe UI', serif; max-width: 920px; margin: 2rem auto; padding: 0 1.25rem; color: #1e293b; line-height: 1.55; }}
@@ -83,6 +130,10 @@ def build_html(
     h2 {{ color: #334e68; margin-top: 2rem; }}
     h3 {{ color: #627d98; }}
     .meta {{ color: #64748b; font-size: 0.95rem; }}
+    .badge {{ display: inline-block; background: #059669; color: #fff; font-size: 0.8rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle; }}
+    .indice {{ background: #f0fdf4; border: 1px solid #86efac; padding: 0.85rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.95rem; }}
+    .indice a {{ color: #047857; }}
+    .pdf-cumplimiento {{ background: #ecfdf5; border-left: 5px solid #059669; padding: 1rem 1.15rem; margin: 0.5rem 0 1.25rem; }}
     table {{ border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.9rem; }}
     th, td {{ border: 1px solid #cbd5e1; padding: 0.4rem 0.6rem; text-align: left; }}
     th {{ background: #f1f5f9; }}
@@ -93,15 +144,35 @@ def build_html(
   </style>
 </head>
 <body>
-  <h1>{_esc(titulo)}</h1>
-  <p class="meta">Generado: {date.today().isoformat()} · Fuente: <code>analisis/nivel0/</code> (repo local)</p>
-  <h2>Guia rapida (lee esto primero)</h2>
-  <div class="guia">
-{guia_paras}  </div>
+  <h1>{_esc(titulo)}<span class="badge">PDF §0.6–0.8</span></h1>
+  <p class="meta">Generado: {date.today().isoformat()} · Versión informe: {_esc(version_informe)} · Fuente: <code>analisis/nivel0/</code></p>
+  <nav class="indice" aria-label="Indice">
+    <strong>Indice:</strong>
+    <a href="#cumplimiento-pdf">Cumplimiento PDF Nivel 0</a> ·
+    <a href="#guia-rapida">Guía rápida D4</a> ·
+    <a href="#graficos">Gráficos</a> ·
+    <a href="#tabla-anios">Tabla por año</a> ·
+    <a href="#metodologia">Detalle metodológico</a>
+  </nav>
 """
     ]
 
-    body_parts.append("  <h2>Graficos · que mirar y que significa</h2>\n")
+    cumplimiento = _bloque_cumplimiento_html(
+        marco_pdf=marco_pdf,
+        entregables=entregables,
+        qa_jalisco=qa_jalisco,
+        qa_d4=qa_d4,
+        checklist=checklist,
+        nota_calidad=nota_calidad,
+    )
+    body_parts.extend(cumplimiento)
+
+    body_parts.append('  <h2 id="guia-rapida">Guia rapida (lee esto primero)</h2>\n')
+    body_parts.append('  <div class="guia">\n')
+    body_parts.append(guia_paras)
+    body_parts.append("  </div>\n")
+
+    body_parts.append('  <h2 id="graficos">Graficos · que mirar y que significa</h2>\n')
     body_parts.append(
         "  <p>Cada figura va seguida de una nota en caja amarilla. No hace falta ser experto: "
         "lee <strong>Que es</strong>, luego <strong>Como leerlo</strong>, luego <strong>En plano</strong>.</p>\n"
@@ -115,7 +186,7 @@ def build_html(
     body_parts.append("  <h2>Como leer la tabla de numeros</h2>\n")
     for para in explicacion_tabla.strip().split("\n\n"):
         body_parts.append(f"  <p>{_esc(para.strip())}</p>\n")
-    body_parts.append("  <h2>Tabla de numeros por año</h2>\n")
+    body_parts.append('  <h2 id="tabla-anios">Tabla de numeros por año</h2>\n')
     body_parts.append(agg_html.replace('class="dataframe"', ""))
 
     body_parts.append("  <h2>Ganador por seccion en 2024</h2>\n")
@@ -130,41 +201,7 @@ def build_html(
     )
     body_parts.append(flags_html)
 
-    if marco_pdf:
-        body_parts.append("  <h2>Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>\n")
-        body_parts.append(f"  <p>{_esc(marco_pdf)}</p>\n")
-        body_parts.append(
-            "  <p class=\"meta\">Especificación: "
-            "<code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · "
-            "Copia del reporte estatal: <code>control_calidad_jalisco_n0.md</code> en esta carpeta.</p>\n"
-        )
-
-    if entregables is not None and not entregables.empty:
-        body_parts.append("  <h3>Entregables §0.7 (analisis/nivel0/)</h3>\n")
-        body_parts.append(entregables.to_html(index=False).replace('class="dataframe"', ""))
-
-    if qa_jalisco:
-        body_parts.append("  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>\n")
-        if nota_calidad:
-            body_parts.append(f"  <p class=\"meta\">{_esc(nota_calidad)}</p>\n")
-        qa_df = pd.DataFrame(qa_jalisco, columns=["Prueba", "Criterio", "Resultado"])
-        body_parts.append(qa_df.to_html(index=False).replace('class="dataframe"', ""))
-
-    if qa_d4 is not None and not qa_d4.empty:
-        body_parts.append("  <h3>Control §0.6 · corte D4 vigente (diputado)</h3>\n")
-        body_parts.append(
-            "  <p>Complemento local: mismas banderas, filtradas al distrito 4 con cartografía vigente.</p>\n"
-        )
-        body_parts.append(qa_d4.to_html(index=False).replace('class="dataframe"', ""))
-
-    if checklist:
-        body_parts.append("  <h3>Checklist ejecutivo §0.8</h3>\n")
-        body_parts.append("  <ul>\n")
-        for item in checklist:
-            body_parts.append(f"    <li>{_esc(item)}</li>\n")
-        body_parts.append("  </ul>\n")
-
-    body_parts.append("  <h2>Detalle metodologico</h2>\n")
+    body_parts.append('  <h2 id="metodologia">Detalle metodologico</h2>\n')
     for heading, text in secciones:
         body_parts.append(f"  <h3>{_esc(heading)}</h3>\n")
         for para in text.strip().split("\n\n"):

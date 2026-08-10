@@ -107,7 +107,7 @@ def notas_figuras(
         f"{n_ln:,} ({pct_ln:.0f}%) significa que en {pct_ln:.0f} de cada 100 filas no venia "
         "lista nominal (padron) en la fuente original — tipico en elecciones viejas, no significa "
         f"fraude. {n_coal:,} ({pct_coal:.0f}%) = boleta con coaliciones donde repartir votos a MC/4T "
-        "es mas trabajoso. {n_out:,} fila(s) = numeros de acta raros (revisar a mano).\n\n"
+        f"es mas trabajoso. {n_out:,} fila(s) = numeros de acta raros (revisar a mano).\n\n"
         "EN PLANO: Imagina 975 hojas de Excel (sección × año). 641 hojas dicen 'no traigo padron'; "
         "475 dicen 'boleta complicada'; 1 dice 'ojo, numeros raros'. Igual usamos los votos de esas "
         "hojas en los graficos 1–3; solo sabemos que hay que interpretar con cuidado.\n\n"
