@@ -224,7 +224,171 @@ Importante: ganar mas secciones no siempre significa mas votos en total; se pued
       <td>641</td>
     </tr>
   </tbody>
-</table>  <h2>Detalle metodologico</h2>
+</table>  <h2>Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>
+  <p>Este informe en salida/ combina tres capas: (1) gráficos y narrativa del Distrito Local 4 (diputado) para campaña; (2) entregables y pruebas del PDF «Nivel 0» (analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf) ya materializados en analisis/nivel0/ por electoral_nivel0.py; (3) pruebas adicionales solo sobre el subconjunto D4 vigente que alimenta los gráficos. Los colores estratégicos (azul/dorado/naranja…) del PDF §0.1 corresponden al Nivel 1+, no a esta auditoría.</p>
+  <p class="meta">Especificación: <code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · Copia del reporte estatal: <code>control_calidad_jalisco_n0.md</code> en esta carpeta.</p>
+  <h3>Entregables §0.7 (analisis/nivel0/)</h3>
+<table border="1" >
+  <thead>
+    <tr style="text-align: right;">
+      <th>entregable_pdf_0_7</th>
+      <th>archivos_en_repo</th>
+      <th>estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Base maestra electoral limpia</td>
+      <td>base_maestra_largo.csv (478,280 filas); base_seccion_anio.csv (53,416 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Diccionario de datos</td>
+      <td>diccionario_datos.md</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Catálogo de elecciones comparables</td>
+      <td>catalogo_elecciones.csv (15 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Tabla de homologación partidaria</td>
+      <td>homologacion_partidos_bloques.csv (142 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Reporte de calidad de datos</td>
+      <td>reporte_calidad.md; reporte_anomalias.csv (1,213 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Inventario de fuentes</td>
+      <td>inventario_fuentes.csv (16 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Catálogo territorial</td>
+      <td>catalogo_secciones.csv (4,245 filas)</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Bitácora metodológica</td>
+      <td>bitacora_metodologica.md</td>
+      <td>Presente</td>
+    </tr>
+    <tr>
+      <td>Serie remapeada (N0.5)</td>
+      <td>base_seccion_anio_interpolada.csv (59,163 filas)</td>
+      <td>Presente</td>
+    </tr>
+  </tbody>
+</table>  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>
+  <p class="meta">Reporte pipeline generado: 2026-07-05T15:05:11</p>
+<table border="1" >
+  <thead>
+    <tr style="text-align: right;">
+      <th>Prueba</th>
+      <th>Criterio</th>
+      <th>Resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Secciones únicas</td>
+      <td>Sin duplicados por sección+año+cargo</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <td>Totales consistentes</td>
+      <td>válidos+nulos+no_reg ≈ total</td>
+      <td>1110 filas con diferencia (2.08%)</td>
+    </tr>
+    <tr>
+      <td>Lista nominal válida</td>
+      <td>sin cero/negativo injustificado</td>
+      <td>0 secciones-año-cargo con LN cero</td>
+    </tr>
+    <tr>
+      <td>Participación válida</td>
+      <td>entre 0% y 100%</td>
+      <td>26 fuera de rango (0.05%)</td>
+    </tr>
+    <tr>
+      <td>Bloques homologados</td>
+      <td>todo partido tiene bloque</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <td>Elecciones clasificadas</td>
+      <td>tipo, año, cargo, comparabilidad</td>
+      <td>OK (15/15)</td>
+    </tr>
+    <tr>
+      <td>Geografía consistente</td>
+      <td>sección en cartografía actual</td>
+      <td>1595 secciones-año-cargo sin cartografía</td>
+    </tr>
+    <tr>
+      <td>Redistritación</td>
+      <td>distrito local estable entre años</td>
+      <td>1704 secciones cambiaron de distrito (ver catálogo)</td>
+    </tr>
+    <tr>
+      <td>Secciones sin histórico</td>
+      <td>identificadas y separadas</td>
+      <td>655 secciones</td>
+    </tr>
+  </tbody>
+</table>  <h3>Control §0.6 · corte D4 vigente (diputado)</h3>
+  <p>Complemento local: mismas banderas, filtradas al distrito 4 con cartografía vigente.</p>
+<table border="1" >
+  <thead>
+    <tr style="text-align: right;">
+      <th>prueba</th>
+      <th>criterio</th>
+      <th>resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Secciones únicas (D4 vigente)</td>
+      <td>Una fila por sección+año (diputado)</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <td>Filas D4 vigente</td>
+      <td>Serie usada en gráficos 1–5</td>
+      <td>975 filas</td>
+    </tr>
+    <tr>
+      <td>Outliers marcados</td>
+      <td>flag_outlier = 1 (PDF §0.10)</td>
+      <td>1 fila(s)</td>
+    </tr>
+    <tr>
+      <td>Datos incompletos</td>
+      <td>flag_datos_incompletos = 1</td>
+      <td>0 fila(s)</td>
+    </tr>
+    <tr>
+      <td>Secciones 2024</td>
+      <td>Cartografía D4 completa (167)</td>
+      <td>167 secciones</td>
+    </tr>
+  </tbody>
+</table>  <h3>Checklist ejecutivo §0.8</h3>
+  <ul>
+    <li>**¿Cuántas secciones tenemos?** 4245 en el catálogo (3900 con datos electorales; 345 solo en cartografía).</li>
+    <li>**¿Cuántas elecciones históricas comparables?** 15 (3 cargos: Diputación MR, Gobernador, Municipal).</li>
+    <li>**¿Qué partidos/coaliciones se homologaron?** Ver `homologacion_partidos_bloques.csv` (bloques: MC, MORENA_4T, PAN, PRI, OTROS).</li>
+    <li>**¿Hay secciones nuevas/sin histórico?** 655 con presencia parcial; ver `catalogo_secciones.csv`.</li>
+    <li>**¿% de datos faltantes?** lista_nominal 65.28% (estructural); válidos 0.12%.</li>
+    <li>**¿Anomalías electorales?** participación&gt;100%: 26; totales inconsistentes: 1110; secciones con redistritación: 1704.</li>
+    <li>**¿Se puede calcular participación y voto por bloque?** Voto por bloque: sí (todos los años/cargos). Participación: solo 2021 y 2024.</li>
+    <li>**¿La base puede auditarse y replicarse?** Sí: pipeline único (`electoral_nivel0.py`) + bitácora + reportes.</li>
+  </ul>
+  <h2>Detalle metodologico</h2>
   <h3>1. Que es el Nivel 0</h3>
   <p>El Nivel 0 del pipeline v3 es la capa de hechos electorales limpios: votos por seccion, año y cargo, homologados a bloques (MC, MORENA 4T, PAN, PRI, OTROS). No incluye indices estrategicos (eso empieza en N1–N5). Aqui auditamos que los archivos del repo sean coherentes y que el Distrito Local 4 (D4) tenga una serie interpretable para diputacion de mayoria relativa.</p>
   <h3>2. Fuentes de datos (repo)</h3>

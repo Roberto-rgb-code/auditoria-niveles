@@ -48,6 +48,13 @@ from interpretaciones import (
     notas_figuras,
 )
 from reporte import build_html, build_pdf, narrativa
+from cumplimiento_pdf import (
+    control_d4_vigente,
+    copiar_reporte_calidad,
+    leer_control_calidad,
+    tabla_entregables,
+    texto_marco_pdf,
+)
 
 
 def main() -> None:
@@ -140,6 +147,14 @@ def main() -> None:
         cargos=cargos,
     )
 
+    calidad = leer_control_calidad(n0)
+    entregables = tabla_entregables(n0)
+    qa_d4 = control_d4_vigente(d4_vig)
+    marco = texto_marco_pdf()
+    copiar_reporte_calidad(n0, SALIDA)
+    entregables.to_csv(SALIDA / "entregables_pdf_0_7.csv", index=False, encoding="utf-8-sig")
+    qa_d4.to_csv(SALIDA / "control_calidad_d4_vigente.csv", index=False, encoding="utf-8-sig")
+
     html_path = SALIDA / "informe_auditoria_n0.html"
     build_html(
         html_path,
@@ -152,6 +167,12 @@ def main() -> None:
         flags=flags,
         ganador=gan,
         imagenes=imagenes,
+        marco_pdf=marco,
+        entregables=entregables,
+        qa_jalisco=calidad["qa"],
+        qa_d4=qa_d4,
+        checklist=calidad["checklist"],
+        nota_calidad=calidad.get("nota", ""),
     )
 
     pdf_path = SALIDA / "informe_auditoria_n0.pdf"
@@ -164,6 +185,12 @@ def main() -> None:
         explicacion_ganador=exp_gan,
         agg=agg,
         imagenes=imagenes,
+        marco_pdf=marco,
+        entregables=entregables,
+        qa_jalisco=calidad["qa"],
+        qa_d4=qa_d4,
+        checklist=calidad["checklist"],
+        nota_calidad=calidad.get("nota", ""),
     )
 
     print()

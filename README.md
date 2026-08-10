@@ -26,7 +26,9 @@ set MIGUEL_GIS_ROOT=C:\ruta\a\miguel-gis
 python "nivel 0/ejecutar_auditoria.py"
 ```
 
-Salida: `nivel 0/salida/` — HTML, PDF, PNG y CSV.
+Salida: `nivel 0/salida/` — HTML, PDF, PNG, CSV y copia de `control_calidad_jalisco_n0.md` (desde `analisis/nivel0/reporte_calidad.md`).
+
+El informe integra el PDF de instrucciones §0.6–0.8 con los entregables del pipeline en `analisis/nivel0/`.
 
 ## Remoto
 

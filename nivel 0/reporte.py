@@ -59,6 +59,12 @@ def build_html(
     flags: pd.DataFrame,
     ganador: pd.Series,
     imagenes: list[tuple[str, Path, str]],
+    marco_pdf: str = "",
+    entregables: pd.DataFrame | None = None,
+    qa_jalisco: list[tuple[str, str, str]] | None = None,
+    qa_d4: pd.DataFrame | None = None,
+    checklist: list[str] | None = None,
+    nota_calidad: str = "",
 ) -> None:
     agg_html = agg.to_html(index=False, float_format=lambda x: f"{x:,.2f}" if isinstance(x, float) else f"{x:,}")
     flags_html = flags.to_html(index=False)
@@ -124,6 +130,40 @@ def build_html(
     )
     body_parts.append(flags_html)
 
+    if marco_pdf:
+        body_parts.append("  <h2>Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>\n")
+        body_parts.append(f"  <p>{_esc(marco_pdf)}</p>\n")
+        body_parts.append(
+            "  <p class=\"meta\">Especificación: "
+            "<code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · "
+            "Copia del reporte estatal: <code>control_calidad_jalisco_n0.md</code> en esta carpeta.</p>\n"
+        )
+
+    if entregables is not None and not entregables.empty:
+        body_parts.append("  <h3>Entregables §0.7 (analisis/nivel0/)</h3>\n")
+        body_parts.append(entregables.to_html(index=False).replace('class="dataframe"', ""))
+
+    if qa_jalisco:
+        body_parts.append("  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>\n")
+        if nota_calidad:
+            body_parts.append(f"  <p class=\"meta\">{_esc(nota_calidad)}</p>\n")
+        qa_df = pd.DataFrame(qa_jalisco, columns=["Prueba", "Criterio", "Resultado"])
+        body_parts.append(qa_df.to_html(index=False).replace('class="dataframe"', ""))
+
+    if qa_d4 is not None and not qa_d4.empty:
+        body_parts.append("  <h3>Control §0.6 · corte D4 vigente (diputado)</h3>\n")
+        body_parts.append(
+            "  <p>Complemento local: mismas banderas, filtradas al distrito 4 con cartografía vigente.</p>\n"
+        )
+        body_parts.append(qa_d4.to_html(index=False).replace('class="dataframe"', ""))
+
+    if checklist:
+        body_parts.append("  <h3>Checklist ejecutivo §0.8</h3>\n")
+        body_parts.append("  <ul>\n")
+        for item in checklist:
+            body_parts.append(f"    <li>{_esc(item)}</li>\n")
+        body_parts.append("  </ul>\n")
+
     body_parts.append("  <h2>Detalle metodologico</h2>\n")
     for heading, text in secciones:
         body_parts.append(f"  <h3>{_esc(heading)}</h3>\n")
@@ -144,6 +184,12 @@ def build_pdf(
     explicacion_ganador: str,
     agg: pd.DataFrame,
     imagenes: list[tuple[str, Path, str]],
+    marco_pdf: str = "",
+    entregables: pd.DataFrame | None = None,
+    qa_jalisco: list[tuple[str, str, str]] | None = None,
+    qa_d4: pd.DataFrame | None = None,
+    checklist: list[str] | None = None,
+    nota_calidad: str = "",
 ) -> bool:
     if not HAS_REPORTLAB:
         return False
@@ -220,6 +266,73 @@ def build_pdf(
     for para in explicacion_ganador.strip().split("\n\n"):
         story.append(Paragraph(para.strip(), body))
         story.append(Spacer(1, 0.1 * cm))
+
+    if marco_pdf:
+        story.append(Paragraph("Cumplimiento PDF Nivel 0", h2))
+        story.append(Paragraph(marco_pdf, body))
+        story.append(Spacer(1, 0.15 * cm))
+
+    if entregables is not None and not entregables.empty:
+        story.append(Paragraph("Entregables §0.7", h2))
+        tdata = [["Entregable", "Estado"]]
+        for _, r in entregables.iterrows():
+            tdata.append([str(r["entregable_pdf_0_7"]), str(r["estado"])])
+        t = Table(tdata, colWidths=[10 * cm, 5 * cm])
+        t.setStyle(
+            TableStyle(
+                [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#EDF2F7")),
+                    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+                    ("FONTSIZE", (0, 0), (-1, -1), 8),
+                ]
+            )
+        )
+        story.append(t)
+        story.append(Spacer(1, 0.2 * cm))
+
+    if qa_jalisco:
+        story.append(Paragraph("Control de calidad §0.6 (Jalisco)", h2))
+        if nota_calidad:
+            story.append(Paragraph(nota_calidad, meta))
+        tdata = [["Prueba", "Resultado"]]
+        for prueba, _crit, res in qa_jalisco:
+            tdata.append([prueba, res])
+        t = Table(tdata, colWidths=[8 * cm, 7 * cm])
+        t.setStyle(
+            TableStyle(
+                [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#EDF2F7")),
+                    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+                    ("FONTSIZE", (0, 0), (-1, -1), 8),
+                ]
+            )
+        )
+        story.append(t)
+        story.append(Spacer(1, 0.2 * cm))
+
+    if qa_d4 is not None and not qa_d4.empty:
+        story.append(Paragraph("Control §0.6 · D4 vigente", h2))
+        tdata = [["Prueba", "Resultado"]]
+        for _, r in qa_d4.iterrows():
+            tdata.append([str(r["prueba"]), str(r["resultado"])])
+        t = Table(tdata, colWidths=[8 * cm, 7 * cm])
+        t.setStyle(
+            TableStyle(
+                [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#EDF2F7")),
+                    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+                    ("FONTSIZE", (0, 0), (-1, -1), 8),
+                ]
+            )
+        )
+        story.append(t)
+        story.append(Spacer(1, 0.2 * cm))
+
+    if checklist:
+        story.append(Paragraph("Checklist ejecutivo §0.8", h2))
+        for item in checklist:
+            story.append(Paragraph(f"• {item}", body))
+            story.append(Spacer(1, 0.06 * cm))
 
     story.append(Paragraph("Detalle metodologico", h2))
     for heading, text in secciones:
