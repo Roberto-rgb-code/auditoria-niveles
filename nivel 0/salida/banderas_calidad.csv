@@ -1,0 +1,5 @@
+flag,n
+flag_outlier,1
+flag_datos_incompletos,0
+flag_coalicion_compleja,475
+flag_lista_nominal_faltante,641
