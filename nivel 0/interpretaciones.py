@@ -19,19 +19,19 @@ def guia_rapida(agg: pd.DataFrame, ganador: pd.Series, flags: pd.DataFrame) -> s
         f"MORENA-4T aprox. {pct_4t:.1f}% — casi empate en votos totales.\n\n"
         f"Pero si cuentas 'quien gano cada casilla/seccion' (mini-territorios), MC gano {mc_s} secciones "
         f"y MORENA-4T gano {m4_s}. Eso puede ser 84 vs 83 aunque los porcentajes totales sean parejos.\n\n"
-        "Los graficos de abajo cuentan la misma historia ano por ano. Las 'banderas' al final son avisos "
+        "Los graficos de abajo cuentan la misma historia año por año. Las 'banderas' al final son avisos "
         "de datos raros en actas; no cambian el ganador por si solas."
     )
 
 
 def explicacion_tabla_numeros() -> str:
     return (
-        "Cada fila es un ano de eleccion. No es una persona: es la suma de todas las secciones del D4.\n\n"
-        "• anio: ano de la eleccion.\n"
-        "• secciones: cuantas secciones electorales entran en el conteo ese ano (167 es el D4 completo hoy).\n"
+        "Cada fila es un año de eleccion. No es una persona: es la suma de todas las secciones del D4.\n\n"
+        "• anio: año de la elección.\n"
+        "• secciones: cuantas secciones electorales entran en el conteo ese año (167 es el D4 completo hoy).\n"
         "• validos: total de votos validos sumados en todo el distrito (numero grande, no porcentaje).\n"
         "• pct_mc / pct_4t: de cada 100 votos validos del distrito, cuantos fueron para MC o para MORENA-4T.\n"
-        "• outliers: cuantas secciones-ano tuvieron un dato sospechoso (ver glosario); en 2021 aparece 1."
+        "• outliers: cuantas secciones-año tuvieron un dato sospechoso (ver glosario); en 2021 aparece 1."
     )
 
 
@@ -65,24 +65,24 @@ def notas_figuras(
 
     nota1 = (
         "QUE ES: Barras naranja = porcentaje de MC; barras vino = porcentaje MORENA-4T; "
-        "linea gris = cuantas secciones sumamos ese ano.\n\n"
+        "linea gris = cuantas secciones sumamos ese año.\n\n"
         "COMO LEERLO: Mira de izquierda a derecha (2009 → 2024). Si una barra sube, ese bloque "
-        "se llevo mas proporcion del pastel de votos validos del distrito entero ese ano.\n\n"
+        "se llevo mas proporcion del pastel de votos validos del distrito entero ese año.\n\n"
         "EN PLANO: MC casi no aparece en 2009 (barra bajita). Crece hasta 2015–2021. MORENA-4T "
         "despega fuerte en 2018 (cuando ya compite como bloque homologado). En "
         f"{int(r24['anio'])} las dos barras miden casi lo mismo ({float(r24['pct_mc']):.1f}% vs "
         f"{float(r24['pct_4t']):.1f}%) — carrera muy cerrada a nivel distrito.\n\n"
-        "LA LINEA GRIS: Si en un ano hay menos de 167 secciones, faltan pedazos del mapa actual "
-        "(anos viejos antes del redistritaje); no es que 'faltaran votos', sino que ese territorio "
+        "LA LINEA GRIS: Si en un año hay menos de 167 secciones, faltan pedazos del mapa actual "
+        "(años viejos antes del redistritaje); no es que 'faltaran votos', sino que ese territorio "
         "pertenecia a otro distrito en esa epoca."
     )
 
     nota2 = (
-        "QUE ES: Cada columna es un ano; la altura total es todos los votos validos del D4; "
+        "QUE ES: Cada columna es un año; la altura total es todos los votos validos del D4; "
         "colores = PAN, PRI, Otros, MC y MORENA-4T apilados.\n\n"
-        "COMO LEERLO: Columna mas alta = ano con mas votos validos en total (mas gente voto o "
-        "crecio el padron). El color que 'come' mas espacio es el bloque con mas votos ese ano.\n\n"
-        "EN PLANO: Arriba del todo suele dominar MC + MORENA-4T en anos recientes; abajo quedan "
+        "COMO LEERLO: Columna mas alta = año con mas votos validos en total (mas gente voto o "
+        "crecio el padron). El color que 'come' mas espacio es el bloque con mas votos ese año.\n\n"
+        "EN PLANO: Arriba del todo suele dominar MC + MORENA-4T en años recientes; abajo quedan "
         "PAN/PRI/Otros. Sirve para ver no solo el duelo MC–4T sino donde se fueron los votos "
         "del resto de partidos."
     )
@@ -100,7 +100,7 @@ def notas_figuras(
 
     nota4 = (
         f"QUE ES: NO es un grafico de votos ni de quien gano. Es un chequeo del archivo: "
-        f"tenemos {total_filas:,} 'filas' en total (cada fila = una seccion en un ano de eleccion, "
+        f"tenemos {total_filas:,} 'filas' en total (cada fila = una seccion en un año de eleccion, "
         f"solo diputado D4). El sistema pone etiquetas cuando algo falta o es confuso en la acta.\n\n"
         "COMO LEERLO: Cada barra dice 'en cuantas filas aparecio este aviso'. El numero entre "
         "parentesis es de esas filas totales. Ejemplo: "
@@ -108,7 +108,7 @@ def notas_figuras(
         "lista nominal (padron) en la fuente original — tipico en elecciones viejas, no significa "
         f"fraude. {n_coal:,} ({pct_coal:.0f}%) = boleta con coaliciones donde repartir votos a MC/4T "
         "es mas trabajoso. {n_out:,} fila(s) = numeros de acta raros (revisar a mano).\n\n"
-        "EN PLANO: Imagina 975 hojas de Excel (seccion × ano). 641 hojas dicen 'no traigo padron'; "
+        "EN PLANO: Imagina 975 hojas de Excel (sección × año). 641 hojas dicen 'no traigo padron'; "
         "475 dicen 'boleta complicada'; 1 dice 'ojo, numeros raros'. Igual usamos los votos de esas "
         "hojas en los graficos 1–3; solo sabemos que hay que interpretar con cuidado.\n\n"
         "NO CONFUNDIR: Barra grande NO quiere decir 'MC perdio esas secciones'. No habla de ganadores; "
@@ -116,10 +116,10 @@ def notas_figuras(
     )
 
     nota5 = (
-        "QUE ES: Comparacion de cuantas secciones entran al analisis cada ano. Gris = corte "
-        "institucional (como decia el acta de ese ano); azul = corte vigente (mapa D4 de hoy).\n\n"
+        "QUE ES: Comparacion de cuantas secciones entran al analisis cada año. Gris = corte "
+        "institucional (como decia el acta de ese año); azul = corte vigente (mapa D4 de hoy).\n\n"
         "COMO LEERLO: Cuando las barras azules llegan a 167, ya tienes el distrito completo actual. "
-        "Gris mas bajo en anos viejos = parte del territorio de hoy votaba en otro distrito entonces.\n\n"
+        "Gris mas bajo en años viejos = parte del territorio de hoy votaba en otro distrito entonces.\n\n"
         f"EN PLANO: En total hay {n_vig:,} filas vigentes vs {n_inst:,} institucionales en la base — "
         "la campana usa el corte azul para hablar siempre del mismo D4 de 167 secciones."
     )

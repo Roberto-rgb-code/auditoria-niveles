@@ -109,7 +109,7 @@ def build_html(
     body_parts.append("  <h2>Como leer la tabla de numeros</h2>\n")
     for para in explicacion_tabla.strip().split("\n\n"):
         body_parts.append(f"  <p>{_esc(para.strip())}</p>\n")
-    body_parts.append("  <h2>Tabla de numeros por ano</h2>\n")
+    body_parts.append("  <h2>Tabla de numeros por año</h2>\n")
     body_parts.append(agg_html.replace('class="dataframe"', ""))
 
     body_parts.append("  <h2>Ganador por seccion en 2024</h2>\n")
@@ -120,7 +120,7 @@ def build_html(
     body_parts.append("  <h2>Banderas de calidad (conteo)</h2>\n")
     body_parts.append(
         "  <p>Piensa en esto como 'alarmas suaves' en los datos. El numero dice cuantas veces "
-        "aparecio esa alarma en alguna seccion y ano del D4.</p>\n"
+        "aparecio esa alarma en alguna seccion y año del D4.</p>\n"
     )
     body_parts.append(flags_html)
 
@@ -189,8 +189,8 @@ def build_pdf(
     for para in explicacion_tabla.strip().split("\n\n"):
         story.append(Paragraph(para.strip(), body))
         story.append(Spacer(1, 0.1 * cm))
-    story.append(Paragraph("Tabla por ano (D4 vigente)", h2))
-    cols = ["Ano", "Secc.", "Validos", "% MC", "% 4T", "Outliers"]
+    story.append(Paragraph("Tabla por año (D4 vigente)", h2))
+    cols = ["Año", "Secc.", "Validos", "% MC", "% 4T", "Outliers"]
     data = [cols]
     for _, r in agg.iterrows():
         data.append(
@@ -255,7 +255,7 @@ def narrativa(
         if f["existe"]
     )
     cargo_txt = "\n".join(
-        f"• {r['cargo']}: {int(r['filas']):,} filas en {int(r['anios'])} anios."
+        f"• {r['cargo']}: {int(r['filas']):,} filas en {int(r['anios'])} años."
         for _, r in cargos.head(5).iterrows()
     )
 
@@ -263,7 +263,7 @@ def narrativa(
         (
             "1. Que es el Nivel 0",
             "El Nivel 0 del pipeline v3 es la capa de hechos electorales limpios: votos por "
-            "seccion, ano y cargo, homologados a bloques (MC, MORENA 4T, PAN, PRI, OTROS). "
+            "seccion, año y cargo, homologados a bloques (MC, MORENA 4T, PAN, PRI, OTROS). "
             "No incluye indices estrategicos (eso empieza en N1–N5). Aqui auditamos que los "
             "archivos del repo sean coherentes y que el Distrito Local 4 (D4) tenga una serie "
             "interpretable para diputacion de mayoria relativa.",
@@ -278,7 +278,7 @@ def narrativa(
         (
             "3. Dos formas de cortar el D4",
             "Institucional: distrito_local_del_anio == 4 en el acta de cada eleccion (como estaba "
-            "en urna ese ano). Vigente (producto): distrito_local_vigente == 4 en base_seccion_anio_interpolada.csv "
+            "en urna ese año). Vigente (producto): distrito_local_vigente == 4 en base_seccion_anio_interpolada.csv "
             "(167 secciones desde 2015; 2009–2012 parciales por redistritacion). "
             f"Para diputado, filas D4 institucional: {n_inst_d4:,}; filas D4 vigente: {n_vig_d4:,}. "
             "Para narrativa de campana y mapas D4 se usa la serie vigente.",
@@ -290,12 +290,12 @@ def narrativa(
         (
             "5. Lectura de la serie historica",
             "Los porcentajes pct_mc y pct_4t son votos del bloque sobre la suma de votos validos "
-            "del distrito en ese ano (no es 'cuantos votaron del padron'; eso seria participacion). "
+            "del distrito en ese año (no es 'cuantos votaron del padron'; eso seria participacion). "
             "Antes de 2018 MORENA 4T aparece bajo o en cero porque el bloque se arma con reglas de "
             "coalicion del pipeline v3. Entre 2018 y 2024 sube la competencia MC vs 4T; en 2024 los "
             "votos validos agregados reflejan la eleccion mas reciente con cartografia completa. "
-            "La columna outliers en la tabla resume cuantas filas (seccion-ano) quedaron marcadas "
-            "como outlier en ese ano (ver glosario).",
+            "La columna outliers en la tabla resume cuantas filas (sección-año) quedaron marcadas "
+            "como outlier en ese año (ver glosario).",
         ),
         (
             "6. Ganador 2024 por seccion",
@@ -321,13 +321,13 @@ def narrativa(
             "de participacion).\n\n"
             "flag_totales_inconsistentes: la suma de componentes no coincide con el total de urna "
             "mas alla de una tolerancia pequena.\n\n"
-            "flag_datos_incompletos: no hay votos validos en esa seccion-ano-cargo.\n\n"
+            "flag_datos_incompletos: no hay votos validos en esa sección-año-cargo.\n\n"
             "flag_coalicion_compleja: en esa eleccion hubo marcas o reparto de votos entre bloques "
             "dificil de leer (coaliciones cruzadas); el dato se conserva pero el desglose exige "
             "mirar catalogo de coaliciones.\n\n"
             "flag_lista_nominal_faltante: la fuente original no traia lista nominal; participacion "
             "no se puede calcular con rigor.\n\n"
-            "Institucional vs vigente: institucional = distrito en el acta de ese ano; vigente = "
+            "Institucional vs vigente: institucional = distrito en el acta de ese año; vigente = "
             "secciones reasignadas al mapa electoral actual (interpolada N0.5) para contar siempre "
             "las mismas 167 secciones del D4 de hoy.\n\n"
             "Interpolada (N0.5): CSV base_seccion_anio_interpolada.csv; remapea historico al "
@@ -336,7 +336,7 @@ def narrativa(
         (
             "8. Banderas de calidad · que significan los numeros del grafico",
             "Los conteos suman cuantas filas del D4 vigente tienen cada flag en 1. Muchas "
-            "flag_lista_nominal_faltante en anos viejos es normal (fuentes sin padron). "
+            "flag_lista_nominal_faltante en años viejos es normal (fuentes sin padron). "
             "flag_coalicion_compleja alto indica elecciones donde MC/4T no se leen como un solo "
             "partido en boleta. Un outlier aislado (p. ej. 1 fila en 2021) conviene cruzarlo con "
             "reporte_anomalias.csv en analisis/nivel0/ si se quiere la seccion exacta.",

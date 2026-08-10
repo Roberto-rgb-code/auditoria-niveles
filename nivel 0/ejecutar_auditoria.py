@@ -99,12 +99,12 @@ def main() -> None:
     g.save(
         g.fig_flags(flags, "Grafico 4 · Avisos de calidad (no es resultado electoral)", len(d4_vig)),
         SALIDA / "04_banderas_calidad.png",
-        nota=f"No cuenta votos: revisa {len(d4_vig):,} filas seccion-ano. Ver nota amarilla en informe.",
+        nota=f"No cuenta votos: revisa {len(d4_vig):,} filas sección-año. Ver nota amarilla en informe.",
     )
     g.save(
         g.fig_secciones_por_anio(d4_inst, d4_vig, "Secciones con dato · institucional vs vigente"),
         SALIDA / "05_secciones_inst_vs_vigente.png",
-        nota="Azul = mapa D4 de hoy; gris = acta historica del ano.",
+        nota="Azul = mapa D4 de hoy; gris = acta historica del año.",
     )
 
     notas = notas_figuras(agg, gan, flags, len(d4_inst), len(d4_vig))
@@ -113,7 +113,7 @@ def main() -> None:
         "02_votos_absolutos.png": "Grafico 2 · Votos totales por bloque (numeros grandes)",
         "03_ganador_2024.png": "Grafico 3 · Quien gano cada seccion en 2024",
         "04_banderas_calidad.png": "Grafico 4 · Avisos de calidad (NO es quien gano)",
-        "05_secciones_inst_vs_vigente.png": "Grafico 5 · Cuantas secciones entran por ano",
+        "05_secciones_inst_vs_vigente.png": "Grafico 5 · Cuantas secciones entran por año",
     }
     imagenes = [
         (titulos["01_evolucion_pct_mc_4t.png"], SALIDA / "01_evolucion_pct_mc_4t.png", notas["01_evolucion_pct_mc_4t.png"]),

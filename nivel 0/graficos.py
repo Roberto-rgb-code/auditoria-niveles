@@ -80,7 +80,7 @@ def fig_flags(flags: pd.DataFrame, title: str, total_filas: int) -> plt.Figure:
     df["etiqueta"] = df["flag"].map(lambda f: LABELS_FLAG.get(f, f.replace("flag_", "")))
     df = df.sort_values("n", ascending=True)
     bars = ax.barh(df["etiqueta"], df["n"], color="#DC2626", alpha=0.75)
-    ax.set_xlabel(f"Cuantas veces aparece (de {total_filas:,} filas seccion-ano en total)")
+    ax.set_xlabel(f"Cuantas veces aparece (de {total_filas:,} filas sección-año en total)")
     ax.set_title(title + "\n(No es 'votos mal'; son recordatorios en el archivo)", fontsize=11)
     xmax = max(df["n"].max(), 1)
     ax.set_xlim(0, xmax * 1.35)
