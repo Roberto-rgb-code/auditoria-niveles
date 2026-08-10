@@ -87,6 +87,17 @@ def notas_figuras(
         "del resto de partidos."
     )
 
+    nota2b = (
+        "QUE ES: Igual que el grafico 2 (mismos colores y bloques), pero cada barra mide siempre "
+        "100% del pastel de votos validos del D4 ese año — no importa si hubo mas o menos votos en total.\n\n"
+        "COMO LEERLO: Lee de abajo hacia arriba (0% a 100%). El tramo mas alto es la mayor "
+        "proporcion ese año. Comparar 2009 con 2024: ves como MC y MORENA-4T 'comen' el espacio "
+        "que antes tenian PAN/PRI/Otros, aunque el total de votos cambie.\n\n"
+        "EN PLANO: En 2024 la barra casi se parte en dos entre naranja (MC) y vino (4T); en 2009 "
+        "dominan rojo/azul (PRI/PAN). Sirve para ver reparto relativo sin que te distraiga una "
+        "eleccion con mucha mas gente votando."
+    )
+
     mc_s = int(ganador.get("MC", 0))
     m4_s = int(ganador.get("MORENA_4T", 0))
     nota3 = (
@@ -127,6 +138,7 @@ def notas_figuras(
     return {
         "01_evolucion_pct_mc_4t.png": nota1,
         "02_votos_absolutos.png": nota2,
+        "02b_composicion_votos_pct.png": nota2b,
         "03_ganador_2024.png": nota3,
         "04_banderas_calidad.png": nota4,
         "05_secciones_inst_vs_vigente.png": nota5,

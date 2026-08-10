@@ -100,6 +100,11 @@ def main() -> None:
         nota="Altura total = votos validos sumados; colores = cada partido/bloque.",
     )
     g.save(
+        g.fig_votos_porcentaje(agg, "Composicion % votos validos por bloque · D4 vigente"),
+        SALIDA / "02b_composicion_votos_pct.png",
+        nota="Cada barra = 100%; alturas comparables entre años (solo proporciones).",
+    )
+    g.save(
         g.fig_ganador_2024(gan, "Ganador por seccion · 2024 · D4 vigente"),
         SALIDA / "03_ganador_2024.png",
         nota="Rebanadas = secciones ganadas (no % de votos del estado).",
@@ -119,6 +124,7 @@ def main() -> None:
     titulos = {
         "01_evolucion_pct_mc_4t.png": "Grafico 1 · Evolucion MC vs MORENA-4T (porcentajes)",
         "02_votos_absolutos.png": "Grafico 2 · Votos totales por bloque (numeros grandes)",
+        "02b_composicion_votos_pct.png": "Grafico 2b · Composicion por bloque (% del 100%)",
         "03_ganador_2024.png": "Grafico 3 · Quien gano cada seccion en 2024",
         "04_banderas_calidad.png": "Grafico 4 · Avisos de calidad (NO es quien gano)",
         "05_secciones_inst_vs_vigente.png": "Grafico 5 · Cuantas secciones entran por año",
@@ -126,6 +132,11 @@ def main() -> None:
     imagenes = [
         (titulos["01_evolucion_pct_mc_4t.png"], SALIDA / "01_evolucion_pct_mc_4t.png", notas["01_evolucion_pct_mc_4t.png"]),
         (titulos["02_votos_absolutos.png"], SALIDA / "02_votos_absolutos.png", notas["02_votos_absolutos.png"]),
+        (
+            titulos["02b_composicion_votos_pct.png"],
+            SALIDA / "02b_composicion_votos_pct.png",
+            notas["02b_composicion_votos_pct.png"],
+        ),
         (titulos["03_ganador_2024.png"], SALIDA / "03_ganador_2024.png", notas["03_ganador_2024.png"]),
         (titulos["04_banderas_calidad.png"], SALIDA / "04_banderas_calidad.png", notas["04_banderas_calidad.png"]),
         (
@@ -176,7 +187,7 @@ def main() -> None:
         checklist=calidad["checklist"],
         nota_calidad=calidad.get("nota", ""),
         manifest_entregables=manifest,
-        version_informe="2026-08-09-entregables",
+        version_informe="2026-08-09-grafico-2b",
     )
 
     pdf_path = SALIDA / "informe_auditoria_n0.pdf"

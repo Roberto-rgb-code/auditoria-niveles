@@ -56,6 +56,39 @@ def fig_votos_absolutos(agg: pd.DataFrame, title: str) -> plt.Figure:
     return fig
 
 
+def fig_votos_porcentaje(agg: pd.DataFrame, title: str) -> plt.Figure:
+    """Barras apiladas al 100%: composición de votos válidos por bloque (eje desde 0%)."""
+    fig, ax = plt.subplots(figsize=(10, 5))
+    tot = agg["validos"].replace(0, pd.NA)
+    bottom = None
+    for col, label in [
+        ("mc", "MC"),
+        ("m4t", "MORENA 4T"),
+        ("pan", "PAN"),
+        ("pri", "PRI"),
+        ("otros", "Otros"),
+    ]:
+        pct = (agg[col] / tot * 100).fillna(0).values
+        ax.bar(
+            agg["anio"],
+            pct,
+            bottom=bottom,
+            label=label,
+            color=COLORS[col],
+            edgecolor="white",
+            linewidth=0.4,
+        )
+        bottom = pct if bottom is None else bottom + pct
+    ax.set_title(title)
+    ax.set_xlabel("Anio")
+    ax.set_ylabel("% de votos validos (cada barra = 100%)")
+    ax.set_ylim(0, 100)
+    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{y:.0f}%"))
+    ax.legend(loc="upper left", fontsize=8)
+    fig.tight_layout()
+    return fig
+
+
 def fig_ganador_2024(counts: pd.Series, title: str) -> plt.Figure:
     fig, ax = plt.subplots(figsize=(6, 6))
     labels = counts.index.tolist()
