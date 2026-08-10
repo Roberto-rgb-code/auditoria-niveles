@@ -1,0 +1,7 @@
+﻿prueba,criterio,resultado
+Normativa v3 disponible,00 Marco + 01 Cimientos en repo,OK
+D7 · tres cantidades,"voto_marca_unica, voto_combinado_coalicion, voto_legal_distribuido",PENDIENTE (re-ingesta Excel INE; base actual colapsada)
+Unicidad D4 vigente diputado,Una fila sección+año,OK
+N0.5 · duplicados sección+año+cargo,Prueba de rechazo v3 §2.1,OK
+Outliers no borrados,flag_outlier documentado (v3 §1.4),1 fila(s) D4
+Secciones D4 2024,Cartografía vigente en serie campaña,167 secciones

@@ -2,8 +2,12 @@
 
 Informes reproducibles en Python (pandas + matplotlib) sobre los CSV de `analisis/`.
 
-**Especificación Nivel 0 (marco v3):** en el monorepo miguel-gis,  
-`analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf`
+**Especificación Nivel 0 (normativa v3):**
+
+- `analisis/Instrucciones v3/Instrucciones v3/00 — Marco general v3.md`
+- `analisis/Instrucciones v3/Instrucciones v3/01 — Cimientos N0-N0.5 v3.md`
+
+(Sustituye el PDF Nivel 0 v1.)
 
 ## Requisitos
 

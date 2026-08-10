@@ -48,13 +48,16 @@ from interpretaciones import (
     notas_figuras,
 )
 from reporte import build_html, build_pdf, narrativa
-from cumplimiento_pdf import (
+from cumplimiento_v3 import (
+    checklist_v3,
     control_d4_vigente,
     copiar_entregables_n0,
+    copiar_instrucciones_v3,
     copiar_reporte_calidad,
-    leer_control_calidad,
+    leer_control_pipeline,
+    pruebas_normativas_v3,
     tabla_entregables,
-    texto_marco_pdf,
+    texto_marco_v3,
 )
 
 
@@ -159,13 +162,18 @@ def main() -> None:
         cargos=cargos,
     )
 
-    calidad = leer_control_calidad(n0)
+    calidad = leer_control_pipeline(n0)
     entregables = tabla_entregables(n0)
     manifest = copiar_entregables_n0(n0, SALIDA)
+    normativa_links = copiar_instrucciones_v3(REPO, SALIDA)
+    qa_v3 = pruebas_normativas_v3(REPO, n0, d4_vig)
     qa_d4 = control_d4_vigente(d4_vig)
-    marco = texto_marco_pdf()
+    marco = texto_marco_v3(REPO)
+    chk = checklist_v3(REPO, n0, entregables)
+    chk.extend(calidad.get("checklist", []))
     copiar_reporte_calidad(n0, SALIDA)
-    entregables.to_csv(SALIDA / "entregables_pdf_0_7.csv", index=False, encoding="utf-8-sig")
+    entregables.to_csv(SALIDA / "entregables_v3_2_3.csv", index=False, encoding="utf-8-sig")
+    qa_v3.to_csv(SALIDA / "control_normativo_v3.csv", index=False, encoding="utf-8-sig")
     qa_d4.to_csv(SALIDA / "control_calidad_d4_vigente.csv", index=False, encoding="utf-8-sig")
 
     html_path = SALIDA / "informe_auditoria_n0.html"
@@ -182,12 +190,14 @@ def main() -> None:
         imagenes=imagenes,
         marco_pdf=marco,
         entregables=entregables,
+        qa_v3=qa_v3,
         qa_jalisco=calidad["qa"],
         qa_d4=qa_d4,
-        checklist=calidad["checklist"],
+        checklist=chk,
         nota_calidad=calidad.get("nota", ""),
         manifest_entregables=manifest,
-        version_informe="2026-08-09-grafico-2b",
+        normativa_links=normativa_links,
+        version_informe="2026-08-09-v3",
     )
 
     pdf_path = SALIDA / "informe_auditoria_n0.pdf"
@@ -202,9 +212,10 @@ def main() -> None:
         imagenes=imagenes,
         marco_pdf=marco,
         entregables=entregables,
+        qa_v3=qa_v3,
         qa_jalisco=calidad["qa"],
         qa_d4=qa_d4,
-        checklist=calidad["checklist"],
+        checklist=chk,
         nota_calidad=calidad.get("nota", ""),
     )
 

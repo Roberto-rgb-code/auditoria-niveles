@@ -26,90 +26,69 @@
   </style>
 </head>
 <body>
-  <h1>Auditoria Nivel 0 · Distrito Local 4 · Diputacion<span class="badge">PDF §0.6–0.8</span></h1>
-  <p class="meta">Generado: 2026-08-09 · Versión informe: 2026-08-09-grafico-2b · Fuente: <code>analisis/nivel0/</code></p>
+  <h1>Auditoria Nivel 0 · Distrito Local 4 · Diputacion<span class="badge">Instrucciones v3</span></h1>
+  <p class="meta">Generado: 2026-08-09 · Versión informe: 2026-08-09-v3 · Fuente: <code>analisis/nivel0/</code></p>
   <nav class="indice" aria-label="Indice">
     <strong>Indice:</strong>
-    <a href="#cumplimiento-pdf">Cumplimiento PDF Nivel 0</a> ·
+    <a href="#cumplimiento-v3">Cumplimiento v3</a> ·
     <a href="#archivos-n0">Archivos N0</a> ·
     <a href="#guia-rapida">Guía rápida D4</a> ·
     <a href="#graficos">Gráficos</a> ·
     <a href="#tabla-anios">Tabla por año</a> ·
     <a href="#metodologia">Detalle metodológico</a>
   </nav>
-  <h2 id="cumplimiento-pdf">Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>
+  <h2 id="cumplimiento-v3">Cumplimiento Instrucciones v3 (N0 / N0.5)</h2>
   <div class="pdf-cumplimiento">
-    <p>Este informe combina narrativa del Distrito Local 4 (diputado) con el cumplimiento del PDF «Nivel 0» (analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf). Todos los entregables del pipeline (base maestra, catálogos, reportes, bitácora, N0.5) se copian a salida/entregables_n0/ al ejecutar la auditoría. Los colores estratégicos del PDF §0.1 corresponden al Nivel 1+.</p>
-    <p class="meta">Especificación: <code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · Copia en esta carpeta: <code>entregables_n0/</code> (todos los CSV/MD del N0) · Manifiesto: <code>entregables_n0_manifest.csv</code> · Atajo calidad: <code>control_calidad_jalisco_n0.md</code>.</p>
+    <p>Auditoría alineada a **Instrucciones v3** (normativa vigente): «analisis/Instrucciones v3/Instrucciones v3/00 ÔÇö Marco general v3.md» y «analisis/Instrucciones v3/Instrucciones v3/01 ÔÇö Cimientos N0-N0.5 v3.md». Consolida N0/N0.5 aprobados; reemplaza el PDF Nivel 0 v1. Copias locales: `salida/instrucciones_v3/` (textos normativos) y `salida/entregables_n0/` (artefactos del pipeline). La narrativa D4 usa la serie interpolada; el cumplimiento D7 (tres cantidades) se reporta explícitamente hasta completar re-ingesta.</p>
+    <p class="meta">Normativa: <code>analisis/Instrucciones v3/Instrucciones v3/</code> (00 Marco general + 01 Cimientos N0-N0.5). Copias: <code>instrucciones_v3/</code>, <code>entregables_n0/</code>, manifiesto <code>entregables_n0_manifest.csv</code>.</p>
   </div>
-  <h3>Entregables §0.7 (resumen)</h3>
+  <ul class="lista-entregables">
+    <li><a href="instrucciones_v3/00 ÔÇö Marco general v3.md">00 ÔÇö Marco general v3.md</a></li>
+    <li><a href="instrucciones_v3/01 ÔÇö Cimientos N0-N0.5 v3.md">01 ÔÇö Cimientos N0-N0.5 v3.md</a></li>
+  </ul>
+  <h3>Entregables cimientos (v3 §2.3)</h3>
 <table border="1" >
   <thead>
     <tr style="text-align: right;">
-      <th>entregable_pdf_0_7</th>
+      <th>entregable_v3_2_3</th>
       <th>archivos_en_repo</th>
       <th>estado</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Base maestra electoral limpia</td>
+      <td>Hecho atómico / bases</td>
       <td>base_maestra_largo.csv (478,280 filas); base_seccion_anio.csv (53,416 filas)</td>
       <td>Presente</td>
     </tr>
     <tr>
-      <td>Historial y limpieza</td>
-      <td>historial_partidos.csv (456,167 filas)</td>
+      <td>Interpretación coalición y satélites</td>
+      <td>catalogo_coalicion.csv (142 filas); registro_satelites.csv (72 filas)</td>
       <td>Presente</td>
     </tr>
     <tr>
-      <td>Diccionario de datos</td>
-      <td>diccionario_datos.md</td>
-      <td>Presente</td>
-    </tr>
-    <tr>
-      <td>Catálogo de elecciones comparables</td>
-      <td>catalogo_elecciones.csv (15 filas)</td>
-      <td>Presente</td>
-    </tr>
-    <tr>
-      <td>Catálogo territorial y coaliciones</td>
-      <td>catalogo_secciones.csv (4,245 filas); catalogo_coalicion.csv (142 filas)</td>
-      <td>Presente</td>
-    </tr>
-    <tr>
-      <td>Tabla de homologación partidaria</td>
+      <td>Homologación y voto combinado</td>
       <td>homologacion_partidos_bloques.csv (142 filas); voto_combinado_coalicion.csv (162,089 filas)</td>
       <td>Presente</td>
     </tr>
     <tr>
-      <td>Reporte de calidad de datos</td>
-      <td>reporte_calidad.md; reporte_anomalias.csv (1,213 filas)</td>
+      <td>Catálogos territorio y elecciones</td>
+      <td>catalogo_secciones.csv (4,245 filas); catalogo_elecciones.csv (15 filas)</td>
       <td>Presente</td>
     </tr>
     <tr>
-      <td>Inventario de fuentes</td>
-      <td>inventario_fuentes.csv (16 filas)</td>
-      <td>Presente</td>
-    </tr>
-    <tr>
-      <td>Bitácora metodológica</td>
-      <td>bitacora_metodologica.md</td>
-      <td>Presente</td>
-    </tr>
-    <tr>
-      <td>Serie remapeada (N0.5)</td>
+      <td>N0.5 interpolación + proporciones</td>
       <td>base_seccion_anio_interpolada.csv (59,163 filas); interpolacion_proporciones.csv (26,798 filas)</td>
       <td>Presente</td>
     </tr>
     <tr>
-      <td>Auxiliares pipeline</td>
-      <td>registro_satelites.csv (72 filas); resumen_partidos_estatal.csv (141 filas)</td>
+      <td>Calidad, anomalías, fuentes</td>
+      <td>reporte_calidad.md; reporte_anomalias.csv (1,213 filas); inventario_fuentes.csv (16 filas)</td>
       <td>Presente</td>
     </tr>
     <tr>
-      <td>Vistas demarcación</td>
-      <td>vistas_demarcacion/vw_resultados_institucionales_distrito.csv (120 filas); vistas_demarcacion/vw_nivel1_demarcacion.csv (110 filas)</td>
+      <td>Documentación</td>
+      <td>diccionario_datos.md; bitacora_metodologica.md</td>
       <td>Presente</td>
     </tr>
   </tbody>
@@ -117,28 +96,68 @@
   <p>Descarga o abre cada entregable desde esta carpeta (misma copia que analisis/nivel0/).</p>
   <ul class="lista-entregables">
     <li><a href="entregables_n0/README.md">README.md</a> — Guía de entregables N0 <span class="meta">(1.5 KB)</span></li>
-    <li><a href="entregables_n0/base_maestra_largo.csv">base_maestra_largo.csv</a> — Base maestra formato largo <span class="meta">(478,280 filas)</span></li>
-    <li><a href="entregables_n0/base_seccion_anio.csv">base_seccion_anio.csv</a> — Resumen sección×año×cargo <span class="meta">(53,416 filas)</span></li>
-    <li><a href="entregables_n0/historial_partidos.csv">historial_partidos.csv</a> — Registro largo por partido (limpieza) <span class="meta">(456,167 filas)</span></li>
-    <li><a href="entregables_n0/base_seccion_anio_interpolada.csv">base_seccion_anio_interpolada.csv</a> — Serie remapeada N0.5 <span class="meta">(59,163 filas)</span></li>
-    <li><a href="entregables_n0/interpolacion_proporciones.csv">interpolacion_proporciones.csv</a> — Proporciones interpolación (auditable) <span class="meta">(26,798 filas)</span></li>
-    <li><a href="entregables_n0/catalogo_secciones.csv">catalogo_secciones.csv</a> — Catálogo territorial <span class="meta">(4,245 filas)</span></li>
-    <li><a href="entregables_n0/catalogo_elecciones.csv">catalogo_elecciones.csv</a> — Elecciones comparables <span class="meta">(15 filas)</span></li>
-    <li><a href="entregables_n0/catalogo_coalicion.csv">catalogo_coalicion.csv</a> — Catálogo de coaliciones <span class="meta">(142 filas)</span></li>
+    <li><a href="entregables_n0/base_maestra_largo.csv">base_maestra_largo.csv</a> — Base maestra / hecho (pre o post re-ingesta D7) <span class="meta">(478,280 filas)</span></li>
+    <li><a href="entregables_n0/base_seccion_anio.csv">base_seccion_anio.csv</a> — Agregado sección×año×cargo (bloques, banderas) <span class="meta">(53,416 filas)</span></li>
+    <li><a href="entregables_n0/historial_partidos.csv">historial_partidos.csv</a> — Registro largo por partido <span class="meta">(456,167 filas)</span></li>
+    <li><a href="entregables_n0/catalogo_coalicion.csv">catalogo_coalicion.csv</a> — Catálogo coalición → bloque (capa interpretación) <span class="meta">(142 filas)</span></li>
+    <li><a href="entregables_n0/registro_satelites.csv">registro_satelites.csv</a> — Satélites PVEM, PT, etc. (v3) <span class="meta">(72 filas)</span></li>
     <li><a href="entregables_n0/homologacion_partidos_bloques.csv">homologacion_partidos_bloques.csv</a> — Homologación partido→bloque <span class="meta">(142 filas)</span></li>
     <li><a href="entregables_n0/voto_combinado_coalicion.csv">voto_combinado_coalicion.csv</a> — Voto combinado coalición <span class="meta">(162,089 filas)</span></li>
-    <li><a href="entregables_n0/registro_satelites.csv">registro_satelites.csv</a> — Partidos satélite <span class="meta">(72 filas)</span></li>
-    <li><a href="entregables_n0/resumen_partidos_estatal.csv">resumen_partidos_estatal.csv</a> — Resumen estatal por partido <span class="meta">(141 filas)</span></li>
+    <li><a href="entregables_n0/catalogo_secciones.csv">catalogo_secciones.csv</a> — Territorio + distrito_local_vigente (Adenda A) <span class="meta">(4,245 filas)</span></li>
+    <li><a href="entregables_n0/catalogo_elecciones.csv">catalogo_elecciones.csv</a> — Elecciones comparables <span class="meta">(15 filas)</span></li>
     <li><a href="entregables_n0/inventario_fuentes.csv">inventario_fuentes.csv</a> — Inventario de fuentes <span class="meta">(16 filas)</span></li>
-    <li><a href="entregables_n0/reporte_anomalias.csv">reporte_anomalias.csv</a> — Anomalías y outliers (detalle) <span class="meta">(1,213 filas)</span></li>
-    <li><a href="entregables_n0/reporte_calidad.md">reporte_calidad.md</a> — Control calidad §0.6 + checklist §0.8 <span class="meta">(4.4 KB)</span></li>
+    <li><a href="entregables_n0/reporte_anomalias.csv">reporte_anomalias.csv</a> — Anomalías detalladas <span class="meta">(1,213 filas)</span></li>
+    <li><a href="entregables_n0/reporte_calidad.md">reporte_calidad.md</a> — Control calidad pipeline (complemento) <span class="meta">(4.4 KB)</span></li>
     <li><a href="entregables_n0/diccionario_datos.md">diccionario_datos.md</a> — Diccionario de variables <span class="meta">(8.7 KB)</span></li>
     <li><a href="entregables_n0/bitacora_metodologica.md">bitacora_metodologica.md</a> — Bitácora metodológica <span class="meta">(5.1 KB)</span></li>
-    <li><a href="entregables_n0/vistas_demarcacion/vw_resultados_institucionales_distrito.csv">vistas_demarcacion/vw_resultados_institucionales_distrito.csv</a> — Vista demarcación · resultados institucionales <span class="meta">(120 filas)</span></li>
-    <li><a href="entregables_n0/vistas_demarcacion/vw_nivel1_demarcacion.csv">vistas_demarcacion/vw_nivel1_demarcacion.csv</a> — Vista demarcación · nivel 1 <span class="meta">(110 filas)</span></li>
+    <li><a href="entregables_n0/base_seccion_anio_interpolada.csv">base_seccion_anio_interpolada.csv</a> — N0.5 · base interpolada cartografía 2024 <span class="meta">(59,163 filas)</span></li>
+    <li><a href="entregables_n0/interpolacion_proporciones.csv">interpolacion_proporciones.csv</a> — N0.5 · proporciones dasimétricas auditables <span class="meta">(26,798 filas)</span></li>
+    <li><a href="entregables_n0/vistas_demarcacion/vw_resultados_institucionales_distrito.csv">vistas_demarcacion/vw_resultados_institucionales_distrito.csv</a> — Vista demarcación institucional <span class="meta">(120 filas)</span></li>
+    <li><a href="entregables_n0/vistas_demarcacion/vw_nivel1_demarcacion.csv">vistas_demarcacion/vw_nivel1_demarcacion.csv</a> — Vista demarcación N1 <span class="meta">(110 filas)</span></li>
   </ul>
-  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>
-  <p class="meta">Reporte pipeline generado: 2026-07-05T15:05:11</p>
+  <h3>Control normativo v3 (§1.5 N0 + §2.1 N0.5)</h3>
+<table border="1" >
+  <thead>
+    <tr style="text-align: right;">
+      <th>prueba</th>
+      <th>criterio</th>
+      <th>resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Normativa v3 disponible</td>
+      <td>00 Marco + 01 Cimientos en repo</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <td>D7 · tres cantidades</td>
+      <td>voto_marca_unica, voto_combinado_coalicion, voto_legal_distribuido</td>
+      <td>PENDIENTE (re-ingesta Excel INE; base actual colapsada)</td>
+    </tr>
+    <tr>
+      <td>Unicidad D4 vigente diputado</td>
+      <td>Una fila sección+año</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <td>N0.5 · duplicados sección+año+cargo</td>
+      <td>Prueba de rechazo v3 §2.1</td>
+      <td>OK</td>
+    </tr>
+    <tr>
+      <td>Outliers no borrados</td>
+      <td>flag_outlier documentado (v3 §1.4)</td>
+      <td>1 fila(s) D4</td>
+    </tr>
+    <tr>
+      <td>Secciones D4 2024</td>
+      <td>Cartografía vigente en serie campaña</td>
+      <td>167 secciones</td>
+    </tr>
+  </tbody>
+</table>  <h3>Control pipeline legacy (reporte_calidad.md)</h3>
+  <p class="meta">Pipeline N0 generado: 2026-07-05T15:05:11</p>
 <table border="1" >
   <thead>
     <tr style="text-align: right;">
@@ -194,7 +213,7 @@
       <td>655 secciones</td>
     </tr>
   </tbody>
-</table>  <h3>Control §0.6 · corte D4 vigente (diputado)</h3>
+</table>  <h3>Control · corte D4 vigente (diputado)</h3>
   <p>Complemento local: mismas banderas, filtradas al distrito 4 con cartografía vigente.</p>
 <table border="1" >
   <thead>
@@ -212,12 +231,12 @@
     </tr>
     <tr>
       <td>Filas D4 vigente</td>
-      <td>Serie usada en gráficos 1–5</td>
+      <td>Gráficos 1–2b</td>
       <td>975 filas</td>
     </tr>
     <tr>
       <td>Outliers marcados</td>
-      <td>flag_outlier = 1 (PDF §0.10)</td>
+      <td>flag_outlier = 1</td>
       <td>1 fila(s)</td>
     </tr>
     <tr>
@@ -225,14 +244,15 @@
       <td>flag_datos_incompletos = 1</td>
       <td>0 fila(s)</td>
     </tr>
-    <tr>
-      <td>Secciones 2024</td>
-      <td>Cartografía D4 completa (167)</td>
-      <td>167 secciones</td>
-    </tr>
   </tbody>
-</table>  <h3>Checklist ejecutivo §0.8</h3>
+</table>  <h3>Checklist v3 + operación</h3>
   <ul>
+    <li>**Normativa:** 00 ÔÇö Marco general v3.md + 01 ÔÇö Cimientos N0-N0.5 v3.md (Instrucciones v3).</li>
+    <li>**D7 (vital):** re-ingesta desde Excel INE con tres cantidades por emblema; sin eso no hay rastreo de satélites 2027.</li>
+    <li>**Entregables §2.3:** 7/7 grupos presentes en `analisis/nivel0/`.</li>
+    <li>**N0.5:** interpolación dasimétrica → `base_seccion_anio_interpolada.csv` + `interpolacion_proporciones.csv`.</li>
+    <li>**Demarcación:** doble corte institucional vs `distrito_local_vigente` (Adenda A / D5 en Marco v3).</li>
+    <li>**Colores estratégicos (N3+):** no aplican en esta auditoría de cimientos; ver Marco v3 §1 D3.</li>
     <li>**¿Cuántas secciones tenemos?** 4245 en el catálogo (3900 con datos electorales; 345 solo en cartografía).</li>
     <li>**¿Cuántas elecciones históricas comparables?** 15 (3 cargos: Diputación MR, Gobernador, Municipal).</li>
     <li>**¿Qué partidos/coaliciones se homologaron?** Ver `homologacion_partidos_bloques.csv` (bloques: MC, MORENA_4T, PAN, PRI, OTROS).</li>
@@ -454,7 +474,7 @@ Importante: ganar mas secciones no siempre significa mas votos en total; se pued
   </tbody>
 </table>  <h2 id="metodologia">Detalle metodologico</h2>
   <h3>1. Que es el Nivel 0</h3>
-  <p>El Nivel 0 del pipeline v3 es la capa de hechos electorales limpios: votos por seccion, año y cargo, homologados a bloques (MC, MORENA 4T, PAN, PRI, OTROS). No incluye indices estrategicos (eso empieza en N1–N5). Aqui auditamos que los archivos del repo sean coherentes y que el Distrito Local 4 (D4) tenga una serie interpretable para diputacion de mayoria relativa.</p>
+  <p>Capa de cimientos según Instrucciones v3 (doc 01): hecho atómico N0 + interpolación N0.5. No incluye colores estratégicos ni índices (N1+). Esta auditoría cruza narrativa D4 (diputado) con entregables en analisis/nivel0/ y la normativa v3 (Marco general + Cimientos). Decisión D7: re-ingesta con tres cantidades por emblema cuando el pipeline electoral lo complete.</p>
   <h3>2. Fuentes de datos (repo)</h3>
   <p>• historial_partidos.csv: 456,167 filas — Registro largo por partido (limpieza N0)
 • base_maestra_largo.csv: 478,280 filas — Maestra homologada a bloques

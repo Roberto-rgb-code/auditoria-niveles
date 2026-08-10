@@ -1,21 +1,20 @@
 ﻿archivo,descripcion,copia_local,detalle,estado
 README.md,Guía de entregables N0,entregables_n0/README.md,1.5 KB,Copiado
-base_maestra_largo.csv,Base maestra formato largo,entregables_n0/base_maestra_largo.csv,"478,280 filas",Copiado
-base_seccion_anio.csv,Resumen sección×año×cargo,entregables_n0/base_seccion_anio.csv,"53,416 filas",Copiado
-historial_partidos.csv,Registro largo por partido (limpieza),entregables_n0/historial_partidos.csv,"456,167 filas",Copiado
-base_seccion_anio_interpolada.csv,Serie remapeada N0.5,entregables_n0/base_seccion_anio_interpolada.csv,"59,163 filas",Copiado
-interpolacion_proporciones.csv,Proporciones interpolación (auditable),entregables_n0/interpolacion_proporciones.csv,"26,798 filas",Copiado
-catalogo_secciones.csv,Catálogo territorial,entregables_n0/catalogo_secciones.csv,"4,245 filas",Copiado
-catalogo_elecciones.csv,Elecciones comparables,entregables_n0/catalogo_elecciones.csv,15 filas,Copiado
-catalogo_coalicion.csv,Catálogo de coaliciones,entregables_n0/catalogo_coalicion.csv,142 filas,Copiado
+base_maestra_largo.csv,Base maestra / hecho (pre o post re-ingesta D7),entregables_n0/base_maestra_largo.csv,"478,280 filas",Copiado
+base_seccion_anio.csv,"Agregado sección×año×cargo (bloques, banderas)",entregables_n0/base_seccion_anio.csv,"53,416 filas",Copiado
+historial_partidos.csv,Registro largo por partido,entregables_n0/historial_partidos.csv,"456,167 filas",Copiado
+catalogo_coalicion.csv,Catálogo coalición → bloque (capa interpretación),entregables_n0/catalogo_coalicion.csv,142 filas,Copiado
+registro_satelites.csv,"Satélites PVEM, PT, etc. (v3)",entregables_n0/registro_satelites.csv,72 filas,Copiado
 homologacion_partidos_bloques.csv,Homologación partido→bloque,entregables_n0/homologacion_partidos_bloques.csv,142 filas,Copiado
 voto_combinado_coalicion.csv,Voto combinado coalición,entregables_n0/voto_combinado_coalicion.csv,"162,089 filas",Copiado
-registro_satelites.csv,Partidos satélite,entregables_n0/registro_satelites.csv,72 filas,Copiado
-resumen_partidos_estatal.csv,Resumen estatal por partido,entregables_n0/resumen_partidos_estatal.csv,141 filas,Copiado
+catalogo_secciones.csv,Territorio + distrito_local_vigente (Adenda A),entregables_n0/catalogo_secciones.csv,"4,245 filas",Copiado
+catalogo_elecciones.csv,Elecciones comparables,entregables_n0/catalogo_elecciones.csv,15 filas,Copiado
 inventario_fuentes.csv,Inventario de fuentes,entregables_n0/inventario_fuentes.csv,16 filas,Copiado
-reporte_anomalias.csv,Anomalías y outliers (detalle),entregables_n0/reporte_anomalias.csv,"1,213 filas",Copiado
-reporte_calidad.md,Control calidad §0.6 + checklist §0.8,entregables_n0/reporte_calidad.md,4.4 KB,Copiado
+reporte_anomalias.csv,Anomalías detalladas,entregables_n0/reporte_anomalias.csv,"1,213 filas",Copiado
+reporte_calidad.md,Control calidad pipeline (complemento),entregables_n0/reporte_calidad.md,4.4 KB,Copiado
 diccionario_datos.md,Diccionario de variables,entregables_n0/diccionario_datos.md,8.7 KB,Copiado
 bitacora_metodologica.md,Bitácora metodológica,entregables_n0/bitacora_metodologica.md,5.1 KB,Copiado
-vistas_demarcacion/vw_resultados_institucionales_distrito.csv,Vista demarcación · resultados institucionales,entregables_n0/vistas_demarcacion/vw_resultados_institucionales_distrito.csv,120 filas,Copiado
-vistas_demarcacion/vw_nivel1_demarcacion.csv,Vista demarcación · nivel 1,entregables_n0/vistas_demarcacion/vw_nivel1_demarcacion.csv,110 filas,Copiado
+base_seccion_anio_interpolada.csv,N0.5 · base interpolada cartografía 2024,entregables_n0/base_seccion_anio_interpolada.csv,"59,163 filas",Copiado
+interpolacion_proporciones.csv,N0.5 · proporciones dasimétricas auditables,entregables_n0/interpolacion_proporciones.csv,"26,798 filas",Copiado
+vistas_demarcacion/vw_resultados_institucionales_distrito.csv,Vista demarcación institucional,entregables_n0/vistas_demarcacion/vw_resultados_institucionales_distrito.csv,120 filas,Copiado
+vistas_demarcacion/vw_nivel1_demarcacion.csv,Vista demarcación N1,entregables_n0/vistas_demarcacion/vw_nivel1_demarcacion.csv,110 filas,Copiado

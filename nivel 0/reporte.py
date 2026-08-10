@@ -51,28 +51,34 @@ def _bloque_cumplimiento_html(
     *,
     marco_pdf: str,
     entregables: pd.DataFrame | None,
+    qa_v3: pd.DataFrame | None,
     qa_jalisco: list[tuple[str, str, str]] | None,
     qa_d4: pd.DataFrame | None,
     checklist: list[str] | None,
     nota_calidad: str,
     manifest_entregables: pd.DataFrame | None = None,
+    normativa_links: list[str] | None = None,
 ) -> list[str]:
     if not marco_pdf:
         return []
     parts = [
-        '  <h2 id="cumplimiento-pdf">Cumplimiento PDF Nivel 0 (Instrucciones v1)</h2>\n',
+        '  <h2 id="cumplimiento-v3">Cumplimiento Instrucciones v3 (N0 / N0.5)</h2>\n',
         '  <div class="pdf-cumplimiento">\n',
         f"    <p>{_esc(marco_pdf)}</p>\n",
-        "    <p class=\"meta\">Especificación: "
-        "<code>analisis/Instrucciones v1/Instrucciones v1/Nivel 0.pdf</code> · "
-        "Copia en esta carpeta: "
-        f"<code>entregables_n0/</code> (todos los CSV/MD del N0) · "
-        "Manifiesto: <code>entregables_n0_manifest.csv</code> · "
-        "Atajo calidad: <code>control_calidad_jalisco_n0.md</code>.</p>\n",
+        "    <p class=\"meta\">Normativa: "
+        "<code>analisis/Instrucciones v3/Instrucciones v3/</code> "
+        "(00 Marco general + 01 Cimientos N0-N0.5). "
+        f"Copias: <code>instrucciones_v3/</code>, <code>entregables_n0/</code>, "
+        "manifiesto <code>entregables_n0_manifest.csv</code>.</p>\n",
         "  </div>\n",
     ]
+    if normativa_links:
+        parts.append("  <ul class=\"lista-entregables\">\n")
+        for link in normativa_links:
+            parts.append(f'    <li><a href="{_esc(link)}">{_esc(link.split("/")[-1])}</a></li>\n')
+        parts.append("  </ul>\n")
     if entregables is not None and not entregables.empty:
-        parts.append("  <h3>Entregables §0.7 (resumen)</h3>\n")
+        parts.append("  <h3>Entregables cimientos (v3 §2.3)</h3>\n")
         parts.append(entregables.to_html(index=False).replace('class="dataframe"', ""))
 
     if manifest_entregables is not None and not manifest_entregables.empty:
@@ -93,20 +99,23 @@ def _bloque_cumplimiento_html(
             else:
                 parts.append(f"    <li>{nombre} — {desc} <strong>{_esc(est)}</strong></li>\n")
         parts.append("  </ul>\n")
+    if qa_v3 is not None and not qa_v3.empty:
+        parts.append("  <h3>Control normativo v3 (§1.5 N0 + §2.1 N0.5)</h3>\n")
+        parts.append(qa_v3.to_html(index=False).replace('class="dataframe"', ""))
     if qa_jalisco:
-        parts.append("  <h3>Control de calidad §0.6 (Jalisco, pipeline N0)</h3>\n")
+        parts.append("  <h3>Control pipeline legacy (reporte_calidad.md)</h3>\n")
         if nota_calidad:
             parts.append(f"  <p class=\"meta\">{_esc(nota_calidad)}</p>\n")
         qa_df = pd.DataFrame(qa_jalisco, columns=["Prueba", "Criterio", "Resultado"])
         parts.append(qa_df.to_html(index=False).replace('class="dataframe"', ""))
     if qa_d4 is not None and not qa_d4.empty:
-        parts.append("  <h3>Control §0.6 · corte D4 vigente (diputado)</h3>\n")
+        parts.append("  <h3>Control · corte D4 vigente (diputado)</h3>\n")
         parts.append(
             "  <p>Complemento local: mismas banderas, filtradas al distrito 4 con cartografía vigente.</p>\n"
         )
         parts.append(qa_d4.to_html(index=False).replace('class="dataframe"', ""))
     if checklist:
-        parts.append("  <h3>Checklist ejecutivo §0.8</h3>\n")
+        parts.append("  <h3>Checklist v3 + operación</h3>\n")
         parts.append("  <ul>\n")
         for item in checklist:
             parts.append(f"    <li>{_esc(item)}</li>\n")
@@ -133,7 +142,9 @@ def build_html(
     checklist: list[str] | None = None,
     nota_calidad: str = "",
     manifest_entregables: pd.DataFrame | None = None,
-    version_informe: str = "2026-08-09-pdf",
+    qa_v3: pd.DataFrame | None = None,
+    normativa_links: list[str] | None = None,
+    version_informe: str = "2026-08-09-v3",
 ) -> None:
     agg_html = agg.to_html(index=False, float_format=lambda x: f"{x:,.2f}" if isinstance(x, float) else f"{x:,}")
     flags_html = flags.to_html(index=False)
@@ -169,11 +180,11 @@ def build_html(
   </style>
 </head>
 <body>
-  <h1>{_esc(titulo)}<span class="badge">PDF §0.6–0.8</span></h1>
+  <h1>{_esc(titulo)}<span class="badge">Instrucciones v3</span></h1>
   <p class="meta">Generado: {date.today().isoformat()} · Versión informe: {_esc(version_informe)} · Fuente: <code>analisis/nivel0/</code></p>
   <nav class="indice" aria-label="Indice">
     <strong>Indice:</strong>
-    <a href="#cumplimiento-pdf">Cumplimiento PDF Nivel 0</a> ·
+    <a href="#cumplimiento-v3">Cumplimiento v3</a> ·
     <a href="#archivos-n0">Archivos N0</a> ·
     <a href="#guia-rapida">Guía rápida D4</a> ·
     <a href="#graficos">Gráficos</a> ·
@@ -186,11 +197,13 @@ def build_html(
     cumplimiento = _bloque_cumplimiento_html(
         marco_pdf=marco_pdf,
         entregables=entregables,
+        qa_v3=qa_v3,
         qa_jalisco=qa_jalisco,
         qa_d4=qa_d4,
         checklist=checklist,
         nota_calidad=nota_calidad,
         manifest_entregables=manifest_entregables,
+        normativa_links=normativa_links,
     )
     body_parts.extend(cumplimiento)
 
@@ -254,6 +267,7 @@ def build_pdf(
     qa_d4: pd.DataFrame | None = None,
     checklist: list[str] | None = None,
     nota_calidad: str = "",
+    qa_v3: pd.DataFrame | None = None,
 ) -> bool:
     if not HAS_REPORTLAB:
         return False
@@ -332,15 +346,16 @@ def build_pdf(
         story.append(Spacer(1, 0.1 * cm))
 
     if marco_pdf:
-        story.append(Paragraph("Cumplimiento PDF Nivel 0", h2))
-        story.append(Paragraph(marco_pdf, body))
+        story.append(Paragraph("Cumplimiento Instrucciones v3", h2))
+        story.append(Paragraph(marco_pdf.replace("**", ""), body))
         story.append(Spacer(1, 0.15 * cm))
 
     if entregables is not None and not entregables.empty:
-        story.append(Paragraph("Entregables §0.7", h2))
+        story.append(Paragraph("Entregables v3 §2.3", h2))
+        col_ent = "entregable_v3_2_3" if "entregable_v3_2_3" in entregables.columns else entregables.columns[0]
         tdata = [["Entregable", "Estado"]]
         for _, r in entregables.iterrows():
-            tdata.append([str(r["entregable_pdf_0_7"]), str(r["estado"])])
+            tdata.append([str(r[col_ent]), str(r["estado"])])
         t = Table(tdata, colWidths=[10 * cm, 5 * cm])
         t.setStyle(
             TableStyle(
@@ -354,8 +369,26 @@ def build_pdf(
         story.append(t)
         story.append(Spacer(1, 0.2 * cm))
 
+    if qa_v3 is not None and not qa_v3.empty:
+        story.append(Paragraph("Control normativo v3", h2))
+        tdata = [["Prueba", "Resultado"]]
+        for _, r in qa_v3.iterrows():
+            tdata.append([str(r["prueba"]), str(r["resultado"])])
+        t = Table(tdata, colWidths=[8 * cm, 7 * cm])
+        t.setStyle(
+            TableStyle(
+                [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#EDF2F7")),
+                    ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
+                    ("FONTSIZE", (0, 0), (-1, -1), 8),
+                ]
+            )
+        )
+        story.append(t)
+        story.append(Spacer(1, 0.2 * cm))
+
     if qa_jalisco:
-        story.append(Paragraph("Control de calidad §0.6 (Jalisco)", h2))
+        story.append(Paragraph("Control pipeline legacy", h2))
         if nota_calidad:
             story.append(Paragraph(nota_calidad, meta))
         tdata = [["Prueba", "Resultado"]]
@@ -375,7 +408,7 @@ def build_pdf(
         story.append(Spacer(1, 0.2 * cm))
 
     if qa_d4 is not None and not qa_d4.empty:
-        story.append(Paragraph("Control §0.6 · D4 vigente", h2))
+        story.append(Paragraph("Control D4 vigente", h2))
         tdata = [["Prueba", "Resultado"]]
         for _, r in qa_d4.iterrows():
             tdata.append([str(r["prueba"]), str(r["resultado"])])
@@ -393,9 +426,9 @@ def build_pdf(
         story.append(Spacer(1, 0.2 * cm))
 
     if checklist:
-        story.append(Paragraph("Checklist ejecutivo §0.8", h2))
+        story.append(Paragraph("Checklist v3 + operacion", h2))
         for item in checklist:
-            story.append(Paragraph(f"• {item}", body))
+            story.append(Paragraph(f"• {item.replace('**', '')}", body))
             story.append(Spacer(1, 0.06 * cm))
 
     story.append(Paragraph("Detalle metodologico", h2))
@@ -439,11 +472,11 @@ def narrativa(
     return [
         (
             "1. Que es el Nivel 0",
-            "El Nivel 0 del pipeline v3 es la capa de hechos electorales limpios: votos por "
-            "seccion, año y cargo, homologados a bloques (MC, MORENA 4T, PAN, PRI, OTROS). "
-            "No incluye indices estrategicos (eso empieza en N1–N5). Aqui auditamos que los "
-            "archivos del repo sean coherentes y que el Distrito Local 4 (D4) tenga una serie "
-            "interpretable para diputacion de mayoria relativa.",
+            "Capa de cimientos según Instrucciones v3 (doc 01): hecho atómico N0 + interpolación "
+            "N0.5. No incluye colores estratégicos ni índices (N1+). Esta auditoría cruza narrativa "
+            "D4 (diputado) con entregables en analisis/nivel0/ y la normativa v3 (Marco general + "
+            "Cimientos). Decisión D7: re-ingesta con tres cantidades por emblema cuando el pipeline "
+            "electoral lo complete.",
         ),
         (
             "2. Fuentes de datos (repo)",
