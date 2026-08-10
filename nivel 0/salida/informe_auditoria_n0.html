@@ -27,7 +27,7 @@
 </head>
 <body>
   <h1>Auditoria Nivel 0 · Distrito Local 4 · Diputacion<span class="badge">Instrucciones v3</span></h1>
-  <p class="meta">Generado: 2026-08-09 · Versión informe: 2026-08-09-v3 · Fuente: <code>analisis/nivel0/</code></p>
+  <p class="meta">Generado: 2026-08-09 · Versión informe: 2026-08-09-v3-r2 · Fuente: <code>analisis/nivel0/</code></p>
   <nav class="indice" aria-label="Indice">
     <strong>Indice:</strong>
     <a href="#cumplimiento-v3">Cumplimiento v3</a> ·
@@ -39,7 +39,7 @@
   </nav>
   <h2 id="cumplimiento-v3">Cumplimiento Instrucciones v3 (N0 / N0.5)</h2>
   <div class="pdf-cumplimiento">
-    <p>Auditoría alineada a **Instrucciones v3** (normativa vigente): «analisis/Instrucciones v3/Instrucciones v3/00 ÔÇö Marco general v3.md» y «analisis/Instrucciones v3/Instrucciones v3/01 ÔÇö Cimientos N0-N0.5 v3.md». Consolida N0/N0.5 aprobados; reemplaza el PDF Nivel 0 v1. Copias locales: `salida/instrucciones_v3/` (textos normativos) y `salida/entregables_n0/` (artefactos del pipeline). La narrativa D4 usa la serie interpolada; el cumplimiento D7 (tres cantidades) se reporta explícitamente hasta completar re-ingesta.</p>
+    <p>Auditoría alineada a <strong>Instrucciones v3</strong> (normativa vigente): «analisis/Instrucciones v3/Instrucciones v3/00 ÔÇö Marco general v3.md» y «analisis/Instrucciones v3/Instrucciones v3/01 ÔÇö Cimientos N0-N0.5 v3.md». Consolida N0/N0.5 aprobados; reemplaza el PDF Nivel 0 v1. Copias locales: `salida/instrucciones_v3/` (textos normativos) y `salida/entregables_n0/` (artefactos del pipeline). La narrativa D4 usa la serie interpolada; el cumplimiento D7 (tres cantidades) se reporta explícitamente hasta completar re-ingesta.</p>
     <p class="meta">Normativa: <code>analisis/Instrucciones v3/Instrucciones v3/</code> (00 Marco general + 01 Cimientos N0-N0.5). Copias: <code>instrucciones_v3/</code>, <code>entregables_n0/</code>, manifiesto <code>entregables_n0_manifest.csv</code>.</p>
   </div>
   <ul class="lista-entregables">
@@ -247,20 +247,20 @@
   </tbody>
 </table>  <h3>Checklist v3 + operación</h3>
   <ul>
-    <li>**Normativa:** 00 ÔÇö Marco general v3.md + 01 ÔÇö Cimientos N0-N0.5 v3.md (Instrucciones v3).</li>
-    <li>**D7 (vital):** re-ingesta desde Excel INE con tres cantidades por emblema; sin eso no hay rastreo de satélites 2027.</li>
-    <li>**Entregables §2.3:** 7/7 grupos presentes en `analisis/nivel0/`.</li>
-    <li>**N0.5:** interpolación dasimétrica → `base_seccion_anio_interpolada.csv` + `interpolacion_proporciones.csv`.</li>
-    <li>**Demarcación:** doble corte institucional vs `distrito_local_vigente` (Adenda A / D5 en Marco v3).</li>
-    <li>**Colores estratégicos (N3+):** no aplican en esta auditoría de cimientos; ver Marco v3 §1 D3.</li>
-    <li>**¿Cuántas secciones tenemos?** 4245 en el catálogo (3900 con datos electorales; 345 solo en cartografía).</li>
-    <li>**¿Cuántas elecciones históricas comparables?** 15 (3 cargos: Diputación MR, Gobernador, Municipal).</li>
-    <li>**¿Qué partidos/coaliciones se homologaron?** Ver `homologacion_partidos_bloques.csv` (bloques: MC, MORENA_4T, PAN, PRI, OTROS).</li>
-    <li>**¿Hay secciones nuevas/sin histórico?** 655 con presencia parcial; ver `catalogo_secciones.csv`.</li>
-    <li>**¿% de datos faltantes?** lista_nominal 65.28% (estructural); válidos 0.12%.</li>
-    <li>**¿Anomalías electorales?** participación&gt;100%: 26; totales inconsistentes: 1110; secciones con redistritación: 1704.</li>
-    <li>**¿Se puede calcular participación y voto por bloque?** Voto por bloque: sí (todos los años/cargos). Participación: solo 2021 y 2024.</li>
-    <li>**¿La base puede auditarse y replicarse?** Sí: pipeline único (`electoral_nivel0.py`) + bitácora + reportes.</li>
+    <li><strong>Normativa:</strong> 00 ÔÇö Marco general v3.md + 01 ÔÇö Cimientos N0-N0.5 v3.md (Instrucciones v3).</li>
+    <li><strong>D7 (vital):</strong> re-ingesta desde Excel INE con tres cantidades por emblema; sin eso no hay rastreo de satélites 2027.</li>
+    <li><strong>Entregables §2.3:</strong> 7/7 grupos presentes en `analisis/nivel0/`.</li>
+    <li><strong>N0.5:</strong> interpolación dasimétrica → `base_seccion_anio_interpolada.csv` + `interpolacion_proporciones.csv`.</li>
+    <li><strong>Demarcación:</strong> doble corte institucional vs `distrito_local_vigente` (Adenda A / D5 en Marco v3).</li>
+    <li><strong>Colores estratégicos (N3+):</strong> no aplican en esta auditoría de cimientos; ver Marco v3 §1 D3.</li>
+    <li><strong>¿Cuántas secciones tenemos?</strong> 4245 en el catálogo (3900 con datos electorales; 345 solo en cartografía).</li>
+    <li><strong>¿Cuántas elecciones históricas comparables?</strong> 15 (3 cargos: Diputación MR, Gobernador, Municipal).</li>
+    <li><strong>¿Qué partidos/coaliciones se homologaron?</strong> Ver `homologacion_partidos_bloques.csv` (bloques: MC, MORENA_4T, PAN, PRI, OTROS).</li>
+    <li><strong>¿Hay secciones nuevas/sin histórico?</strong> 655 con presencia parcial; ver `catalogo_secciones.csv`.</li>
+    <li><strong>¿% de datos faltantes?</strong> lista_nominal 65.28% (estructural); válidos 0.12%.</li>
+    <li><strong>¿Anomalías electorales?</strong> participación&gt;100%: 26; totales inconsistentes: 1110; secciones con redistritación: 1704.</li>
+    <li><strong>¿Se puede calcular participación y voto por bloque?</strong> Voto por bloque: sí (todos los años/cargos). Participación: solo 2021 y 2024.</li>
+    <li><strong>¿La base puede auditarse y replicarse?</strong> Sí: pipeline único (`electoral_nivel0.py`) + bitácora + reportes.</li>
   </ul>
   <h2 id="guia-rapida">Guia rapida (lee esto primero)</h2>
   <div class="guia">

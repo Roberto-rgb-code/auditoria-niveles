@@ -197,7 +197,7 @@ def main() -> None:
         nota_calidad=calidad.get("nota", ""),
         manifest_entregables=manifest,
         normativa_links=normativa_links,
-        version_informe="2026-08-09-v3",
+        version_informe="2026-08-09-v3-r2",
     )
 
     pdf_path = SALIDA / "informe_auditoria_n0.pdf"

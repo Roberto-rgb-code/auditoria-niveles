@@ -24,6 +24,25 @@ def _esc(s: str) -> str:
     return html.escape(str(s))
 
 
+def _inline_md_bold(text: str) -> str:
+    """Convierte **negrita** a <strong> tras escapar HTML."""
+    out: list[str] = []
+    i = 0
+    while i < len(text):
+        start = text.find("**", i)
+        if start == -1:
+            out.append(_esc(text[i:]))
+            break
+        out.append(_esc(text[i:start]))
+        end = text.find("**", start + 2)
+        if end == -1:
+            out.append(_esc(text[start:]))
+            break
+        out.append(f"<strong>{_esc(text[start + 2 : end])}</strong>")
+        i = end + 2
+    return "".join(out)
+
+
 def _nota_html(nota: str) -> str:
     blocks = []
     for block in nota.strip().split("\n\n"):
@@ -64,7 +83,7 @@ def _bloque_cumplimiento_html(
     parts = [
         '  <h2 id="cumplimiento-v3">Cumplimiento Instrucciones v3 (N0 / N0.5)</h2>\n',
         '  <div class="pdf-cumplimiento">\n',
-        f"    <p>{_esc(marco_pdf)}</p>\n",
+        f"    <p>{_inline_md_bold(marco_pdf)}</p>\n",
         "    <p class=\"meta\">Normativa: "
         "<code>analisis/Instrucciones v3/Instrucciones v3/</code> "
         "(00 Marco general + 01 Cimientos N0-N0.5). "
@@ -118,7 +137,7 @@ def _bloque_cumplimiento_html(
         parts.append("  <h3>Checklist v3 + operación</h3>\n")
         parts.append("  <ul>\n")
         for item in checklist:
-            parts.append(f"    <li>{_esc(item)}</li>\n")
+            parts.append(f"    <li>{_inline_md_bold(item)}</li>\n")
         parts.append("  </ul>\n")
     return parts
 
